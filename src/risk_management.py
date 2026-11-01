@@ -2,13 +2,15 @@ import os
 import json
 from datetime import datetime
 
+
 class RiskManagement:
     def __init__(self, state_file="data/state_machine.json"):
         self.state_file = state_file
         self.min_core_shares = {"2330": 0}
         self.max_daily_orders = 3
-        self.max_capital_cap = 50000.0
-        self.max_single_position = 15000.0
+        self.max_capital_cap = 50000.0      # 5 萬元本金硬頂鎖
+        self.max_single_position = 15000.0  # 單倉上限 1.5 萬元
+        self.max_slots = 3                  # 最多持有 3 倉
         self.load_state()
 
     def load_state(self):
@@ -21,6 +23,8 @@ class RiskManagement:
                         data["date"] = today
                         data["order_count"] = 0
                         data["executed_hashes"] = []
+                    if "positions" not in data:
+                        data["positions"] = {}
                     self.daily_state = data
                     self.save_state()
                     return
@@ -34,7 +38,8 @@ class RiskManagement:
             "invested_cost": 0.0,
             "realized_pnl": 0.0,
             "nav": 50000.0,
-            "available_cash": 45000.0
+            "available_cash": 45000.0,
+            "positions": {}  # 格式: {"2330": {"shares": 13, "entry_price": 1050.0, "highest_price": 1065.0, "ratchet_stop": 1015.0, "score": 68.5, "buy_date": "2026-11-02"}}
         }
         self.save_state()
 
@@ -50,34 +55,72 @@ class RiskManagement:
         return round(effective_cash, 0)
 
     def validate_order(self, order_intent, actual_bank_balance=300000.0):
+        # 保險絲 4：每日交易次數與冪等鎖
         if self.daily_state["order_count"] >= self.max_daily_orders:
             return False, f"【熔斷】已達今日最大交易次數上限 ({self.max_daily_orders} 筆)"
-        
+
         order_hash = order_intent.get("hash_id")
         if order_hash in self.daily_state["executed_hashes"]:
             return False, f"【熔斷】重複交易訊號 (Hash ID: {order_hash})"
 
+        # 保險絲 3：全面禁用市價單
         if order_intent.get("order_type") != "LIMIT":
             return False, "【熔斷】全面禁止市價單（Market Order）"
 
+        symbol = order_intent["symbol"]
+        positions = self.daily_state.get("positions", {})
+
         if order_intent["side"] == "BUY":
+            if symbol in positions:
+                return False, f"【熔斷】已持有 {symbol}，不重複加碼同一倉"
+            if len(positions) >= self.max_slots:
+                return False, f"【熔斷】已滿 {self.max_slots} 倉上限，需先賣出弱勢倉才能買進"
+
             order_cost = order_intent["price"] * order_intent["shares"] * 1.001425
             effective_cash = self.get_effective_Buying_power(actual_bank_balance)
 
             if order_cost > self.max_single_position:
                 return False, f"【熔斷】單筆買進超過單倉上限 ({self.max_single_position:.0f}元)"
-
             if order_cost > effective_cash:
-                return False, f"【熔斷】超過 5 萬元量化池剩餘可用額度"
+                return False, f"【熔斷】超過 5 萬元量化池剩餘可用額度 (剩餘 {effective_cash:.0f} 元)"
 
-        return True, "【通過】5 道防呆保險絲與 5 萬元硬頂鎖檢核無誤"
+        elif order_intent["side"] == "SELL":
+            if symbol not in positions:
+                return False, f"【熔斷】帳本無 {symbol} 持倉，無法賣出"
+            # 台股盤中零股無法當沖保護 (買進當日不可賣出)
+            today = datetime.now().strftime("%Y-%m-%d")
+            if positions[symbol].get("buy_date") == today:
+                return False, f"【熔斷】台股盤中零股不可當沖 ({symbol} 為今日買進，T+1 始可賣出)"
+
+        return True, f"【通過】5 道防呆保險絲檢核無誤 ({order_intent.get('reason', '6D訊號')})"
 
     def record_order_success(self, order_intent):
         self.daily_state["order_count"] += 1
         self.daily_state["executed_hashes"].append(order_intent["hash_id"])
-        order_amount = order_intent["price"] * order_intent["shares"]
+        symbol = order_intent["symbol"]
+        price = order_intent["price"]
+        shares = order_intent["shares"]
+        positions = self.daily_state.setdefault("positions", {})
+
         if order_intent["side"] == "BUY":
-            self.daily_state["invested_cost"] += order_amount
-        elif order_intent["side"] == "SELL":
-            self.daily_state["invested_cost"] = max(0.0, self.daily_state["invested_cost"] - order_amount)
+            cost = round(price * shares * 1.001425, 0)
+            self.daily_state["invested_cost"] += cost
+            positions[symbol] = {
+                "shares": shares,
+                "entry_price": price,
+                "highest_price": price,
+                "ratchet_stop": order_intent.get("ratchet_stop", round(price * 0.94, 1)),
+                "score": order_intent.get("strategy_score", 60.0),
+                "buy_date": datetime.now().strftime("%Y-%m-%d")
+            }
+        elif order_intent["side"] == "SELL" and symbol in positions:
+            pos = positions.pop(symbol)
+            entry_cost = round(pos["entry_price"] * pos["shares"] * 1.001425, 0)
+            # 賣出實拿金額 (扣除 0.1425% 手續費與 0.3% 證交稅)
+            net_proceeds = round(price * shares * (1 - 0.001425 - 0.003), 0)
+            pnl = net_proceeds - entry_cost
+            self.daily_state["invested_cost"] = max(0.0, self.daily_state["invested_cost"] - entry_cost)
+            self.daily_state["realized_pnl"] = round(self.daily_state.get("realized_pnl", 0.0) + pnl, 0)
+            self.daily_state["nav"] = round(self.max_capital_cap + self.daily_state["realized_pnl"], 0)
+
         self.save_state()
