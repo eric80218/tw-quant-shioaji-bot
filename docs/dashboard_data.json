@@ -1,0 +1,12 @@
+{
+  "last_updated": "2026-11-01 21:54:18",
+  "is_live": false,
+  "daily_order_count": 0,
+  "max_daily_orders": 3,
+  "nav": 50000.0,
+  "available_cash": 45000.0,
+  "invested_cost": 0.0,
+  "single_slot_limit": 15000.0,
+  "max_slots": 3,
+  "latest_signal": "今日無符合條件標的"
+}
