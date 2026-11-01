@@ -1,0 +1,49 @@
+name: TW 6D Quant Auto-Trading & WarRoom
+
+on:
+  schedule:
+    - cron: '50 0 * * 1-5'
+    - cron: '0 5 * * 1-5'
+  workflow_dispatch:
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Auto Build Folders & Files
+        run: |
+          if [ -f "init_bot.py" ]; then
+            python init_bot.py
+          fi
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run 6D Quant Engine
+        env:
+          SHIOAJI_API_KEY: ${{ secrets.SHIOAJI_API_KEY }}
+          SHIOAJI_SECRET_KEY: ${{ secrets.SHIOAJI_SECRET_KEY }}
+          CA_PASSWORD: ${{ secrets.CA_PASSWORD }}
+          SHIOAJI_CA_BASE64: ${{ secrets.SHIOAJI_CA_BASE64 }}
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        run: |
+          python main.py
+
+      - name: Commit Generated Structure & Data
+        run: |
+          git config --local user.email "quant-bot@github.com"
+          git config --local user.name "6D Quant Bot"
+          git rm -f *.md requirements.py.txt || true
+          git checkout HEAD -- README.md || true
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-initialize project structure and war-room" && git push)
