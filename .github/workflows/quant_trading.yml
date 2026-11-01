@@ -44,6 +44,7 @@ jobs:
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
           git rm -f *.md requirements.py.txt || true
-          git checkout HEAD -- README.md || true
+          git checkout HEAD -- README.md .github/workflows/quant_trading.yml || true
           git add .
+          git reset HEAD .github/ || true
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-initialize project structure and war-room" && git push)
