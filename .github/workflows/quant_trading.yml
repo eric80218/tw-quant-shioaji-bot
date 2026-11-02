@@ -17,19 +17,14 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: Auto Build Folders & Files
-        run: |
-          if [ -f "init_bot.py" ]; then
-            python init_bot.py
-          fi
+          cache: 'pip'
 
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
 
-            - name: Run 6D Quant Engine
+      - name: Clean Hidden Characters & Run 6D Quant Engine
         env:
           SHIOAJI_API_KEY: ${{ secrets.SHIOAJI_API_KEY }}
           SHIOAJI_SECRET_KEY: ${{ secrets.SHIOAJI_SECRET_KEY }}
@@ -40,13 +35,9 @@ jobs:
           python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
           python main.py
 
-
-      - name: Commit Generated Structure & Data
+      - name: Commit and Push War-Room Data
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
-          git rm -f *.md requirements.py.txt || true
-          git checkout HEAD -- README.md .github/workflows/quant_trading.yml || true
-          git add .
-          git reset HEAD .github/ || true
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto-initialize project structure and war-room" && git push)
+          git add data/ docs/ src/ main.py
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto update war-room data and clean scripts" && git push)
