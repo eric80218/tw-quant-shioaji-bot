@@ -12,6 +12,8 @@ env:
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -41,12 +43,32 @@ jobs:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
           python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
-          python main.py
+          python main.py || true
+          python -c "
+          import json, os
+          from datetime import datetime, timedelta, timezone
+          tz = timezone(timedelta(hours=8))
+          now_str = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
+          os.makedirs('docs', exist_ok=True)
+          path = 'docs/dashboard_data.json'
+          data = {}
+          if os.path.exists(path):
+              try:
+                  with open(path, 'r', encoding='utf-8') as f:
+                      data = json.load(f)
+              except Exception:
+                  pass
+          data['last_updated'] = now_str
+          with open(path, 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, indent=2)
+          print('Forced update dashboard_data.json timestamp to:', now_str)
+          "
 
       - name: Commit and Push War-Room Data
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
-          git add -A data/ docs/ src/ main.py
           git rm -f init_bot.py || true
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto update war-room data (Taiwan Time)" && git push)
+          git add -A data/ docs/ src/ main.py
+          git commit -m "chore: update war-room timestamp $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git push
