@@ -6,6 +6,9 @@ on:
     - cron: '0 5 * * 1-5'
   workflow_dispatch:
 
+env:
+  TZ: Asia/Taipei
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
@@ -19,6 +22,10 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
+      - name: Remove Legacy Init Script
+        run: |
+          rm -f init_bot.py
+
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
@@ -26,6 +33,7 @@ jobs:
 
       - name: Clean Hidden Characters & Run 6D Quant Engine
         env:
+          TZ: Asia/Taipei
           SHIOAJI_API_KEY: ${{ secrets.SHIOAJI_API_KEY }}
           SHIOAJI_SECRET_KEY: ${{ secrets.SHIOAJI_SECRET_KEY }}
           CA_PASSWORD: ${{ secrets.CA_PASSWORD }}
@@ -39,5 +47,6 @@ jobs:
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
-          git add data/ docs/ src/ main.py
-          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto update war-room data and clean scripts" && git push)
+          git add -A data/ docs/ src/ main.py
+          git rm -f init_bot.py || true
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore: auto update war-room data (Taiwan Time)" && git push)
