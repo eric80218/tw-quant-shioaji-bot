@@ -1,9 +1,10 @@
 {
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "order_count": 0,
   "executed_hashes": [],
   "invested_cost": 0.0,
   "realized_pnl": 0.0,
   "nav": 50000.0,
-  "available_cash": 45000.0
+  "available_cash": 45000.0,
+  "positions": {}
 }
