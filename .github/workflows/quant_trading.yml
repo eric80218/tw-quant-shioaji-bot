@@ -29,7 +29,7 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run 6D Quant Engine
+            - name: Run 6D Quant Engine
         env:
           SHIOAJI_API_KEY: ${{ secrets.SHIOAJI_API_KEY }}
           SHIOAJI_SECRET_KEY: ${{ secrets.SHIOAJI_SECRET_KEY }}
@@ -37,7 +37,9 @@ jobs:
           SHIOAJI_CA_BASE64: ${{ secrets.SHIOAJI_CA_BASE64 }}
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
+          python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
           python main.py
+
 
       - name: Commit Generated Structure & Data
         run: |
