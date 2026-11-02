@@ -24,18 +24,17 @@
         <span class="text-2xl font-bold tracking-tight text-white">⚡ 6D Quant Auto-Bot 戰情室</span>
         <span id="mode-badge" class="px-3 py-1 rounded-full text-xs font-semibold badge-warn">🟡 Paper Trading 模擬沙盒 (待永豐金憑證)</span>
       </div>
-      <p class="text-sm text-gray-400 mt-1">永豐金 Shioaji 台股獨立波段池 ‧ 5萬元硬頂鎖內循環系統 ‧ 最後更新: <span id="last-updated">--</span></p>
+      <p class="text-sm text-gray-400 mt-1">永豐金 Shioaji 台股獨立波段池 ‧ 5萬元硬頂鎖內循環系統 ‧ 最後更新(台灣時間): <span id="last-updated">--</span></p>
     </div>
 
-    <!-- 右側狀態指標與「跨戰情室切換按鈕」 -->
     <div class="flex flex-wrap items-center gap-3">
       <div class="card px-4 py-2 flex items-center gap-2">
         <span class="text-xs text-gray-400">今日交易配額:</span>
         <span id="daily-quota" class="text-sm font-bold text-emerald-400">0 / 3 筆</span>
       </div>
       <div class="card px-4 py-2 flex items-center gap-2">
-        <span class="text-xs text-gray-400">總熔斷開關:</span>
-        <span id="kill-switch-status" class="text-sm font-bold text-emerald-400">NORMAL</span>
+        <span class="text-xs text-gray-400">大盤濾網:</span>
+        <span id="regime-status" class="text-xs font-bold text-emerald-400">BULL (開放3倉)</span>
       </div>
       <a id="main-warroom-link" href="https://eric80218.github.io/" target="_blank" rel="noopener noreferrer" class="btn-switch px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1.5">
         <span>🧭 切換至 6D 總操盤室</span>
@@ -44,12 +43,12 @@
     </div>
   </header>
 
-  <!-- 四大核心資金指標 (對齊 5 萬元硬頂鎖與 3 倉配置) -->
+  <!-- 四大核心資金指標 -->
   <section class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
     <div class="card p-5">
       <div class="text-xs text-gray-400 uppercase">永豐波段池總淨值 (5萬硬頂)</div>
       <div id="nav-value" class="text-2xl font-bold text-white mt-2">NT$ 50,000</div>
-      <div id="nav-pnl" class="text-xs text-emerald-400 mt-1">內循環自給自足保護中</div>
+      <div id="nav-pnl" class="text-xs text-emerald-400 mt-1">累積已實現損益: NT$ 0</div>
     </div>
     <div class="card p-5">
       <div class="text-xs text-gray-400 uppercase">剩餘可買現金 (已扣 10% 緩衝墊)</div>
@@ -57,27 +56,27 @@
       <div id="invested-cost" class="text-xs text-amber-400 mt-1">目前已投入成本: NT$ 0</div>
     </div>
     <div class="card p-5">
-      <div class="text-xs text-gray-400 uppercase">倉位配置 / 單倉硬頂</div>
-      <div id="slot-usage" class="text-2xl font-bold text-white mt-2">3 倉輪動</div>
+      <div class="text-xs text-gray-400 uppercase">目前持倉倉數 / 單倉硬頂</div>
+      <div id="slot-usage" class="text-2xl font-bold text-white mt-2">0 / 3 倉</div>
       <div id="slot-limit" class="text-xs text-gray-400 mt-1">單倉最高上限: NT$ 15,000</div>
     </div>
     <div class="card p-5">
       <div class="text-xs text-gray-400 uppercase">最新 6D 掃描訊號結果</div>
-      <div id="latest-signal" class="text-lg font-bold text-emerald-400 mt-2 truncate">等待排程掃描...</div>
+      <div id="latest-signal" class="text-sm font-bold text-emerald-400 mt-2 break-words">等待排程掃描...</div>
       <div class="text-xs text-gray-400 mt-1">每日 08:50 / 13:00 自動巡檢</div>
     </div>
   </section>
 
   <!-- 5 道防呆保險絲即時檢核面板 -->
   <section class="card p-5 mb-6">
-    <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">🛡️ 5 道防呆保險絲 (5-Fuse Kill-Switch Status)</h2>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-3" id="fuses-container">
+    <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">🛡️ 5 道防呆保險絲 + 2 項實戰強化濾網</h2>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
       <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
         <div class="flex justify-between items-center mb-1">
           <span class="text-xs font-bold text-gray-300">FUSE 1 底倉隔離鎖</span>
           <span class="px-2 py-0.5 text-[10px] rounded badge-pass">PASS</span>
         </div>
-        <p class="text-[11px] text-gray-400">國泰長線底倉物理隔離，零誤賣風險</p>
+        <p class="text-[11px] text-gray-400">國泰底倉物理隔離 + 實盤庫存自動對帳</p>
       </div>
       <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
         <div class="flex justify-between items-center mb-1">
@@ -88,66 +87,45 @@
       </div>
       <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
         <div class="flex justify-between items-center mb-1">
-          <span class="text-xs font-bold text-gray-300">FUSE 3 ATR 限價鎖</span>
+          <span class="text-xs font-bold text-gray-300">FUSE 3 Tick 限價對齊</span>
           <span class="px-2 py-0.5 text-[10px] rounded badge-pass">PASS</span>
         </div>
-        <p class="text-[11px] text-gray-400">全面禁用市價單，強制 ROD 限價委託</p>
+        <p class="text-[11px] text-gray-400">台股 6 級升降單位對齊 + 1 檔讓價撮合</p>
       </div>
       <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
         <div class="flex justify-between items-center mb-1">
-          <span class="text-xs font-bold text-gray-300">FUSE 4 冪等與頻率鎖</span>
+          <span class="text-xs font-bold text-gray-300">FUSE 4 冪等與T+1鎖</span>
           <span class="px-2 py-0.5 text-[10px] rounded badge-pass">PASS</span>
         </div>
-        <p class="text-[11px] text-gray-400">單日委託上限 ≤ 3 筆，防重覆 Hash ID</p>
+        <p class="text-[11px] text-gray-400">單日 ≤ 3 筆，防重覆 Hash 與零股當沖</p>
       </div>
       <div class="p-3 rounded-lg bg-gray-900 border border-gray-800">
         <div class="flex justify-between items-center mb-1">
-          <span class="text-xs font-bold text-gray-300">FUSE 5 報價與回撤鎖</span>
-          <span class="px-2 py-0.5 text-[10px] rounded badge-pass">PASS</span>
+          <span class="text-xs font-bold text-gray-300">FUSE 5 0050 大盤濾網</span>
+          <span class="px-2 py-0.5 text-[10px] rounded badge-pass">ACTIVE</span>
         </div>
-        <p class="text-[11px] text-gray-400">雙源報價檢核正常，週回撤未觸及 -5%</p>
+        <p class="text-[11px] text-gray-400">0050 跌破 20MA 自動縮減至 1 倉防禦</p>
       </div>
     </div>
   </section>
 
-  <!-- 6D 波段持倉與保本棘輪監控 + 換股雷達 -->
+  <!-- 6D 波段真實持倉與保本棘輪監控 -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- 左側 2/3：目前波段持倉與棘輪防線 -->
     <div class="card p-5 lg:col-span-2">
-      <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">📊 6D 波段持倉與保本鎖利棘輪 (Active Slots - 盤中零股模式)</h2>
+      <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">📊 6D 波段真實持倉與 14D ATR 保本鎖利棘輪 (Active Slots)</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead>
             <tr class="border-b border-gray-800 text-xs text-gray-400">
-              <th class="pb-3">倉位編號</th>
-              <th class="pb-3">單倉預算上限</th>
-              <th class="pb-3">進場條件檢核</th>
-              <th class="pb-3">出場與鎖利機制</th>
-              <th class="pb-3">目前狀態</th>
+              <th class="pb-3">倉位</th>
+              <th class="pb-3">持有標的 / 股數</th>
+              <th class="pb-3">買進成本 / 現價</th>
+              <th class="pb-3">14D ATR 棘輪停損線</th>
+              <th class="pb-3">帳面損益 / 狀態</th>
             </tr>
           </thead>
           <tbody id="positions-tbody" class="divide-y divide-gray-800">
-            <tr>
-              <td class="py-3 font-medium text-white">SLOT-1 (主力一倉)</td>
-              <td class="py-3 text-sky-400">NT$ 15,000</td>
-              <td class="py-3">收盤 &gt; MA5 + RSI 勾頭</td>
-              <td class="py-3 text-amber-400">14D ATR 保本棘輪</td>
-              <td class="py-3"><span id="slot1-badge" class="px-2 py-0.5 text-xs rounded badge-pass">AI 監控巡航中</span></td>
-            </tr>
-            <tr>
-              <td class="py-3 font-medium text-white">SLOT-2 (主力二倉)</td>
-              <td class="py-3 text-sky-400">NT$ 15,000</td>
-              <td class="py-3">收盤 &gt; MA5 + RSI 勾頭</td>
-              <td class="py-3 text-amber-400">14D ATR 保本棘輪</td>
-              <td class="py-3"><span class="px-2 py-0.5 text-xs rounded badge-warn">空倉待命</span></td>
-            </tr>
-            <tr>
-              <td class="py-3 font-medium text-white">SLOT-3 (輪動三倉)</td>
-              <td class="py-3 text-sky-400">NT$ 15,000</td>
-              <td class="py-3">+7.5 分換股輪動門檻</td>
-              <td class="py-3 text-amber-400">14D ATR 保本棘輪</td>
-              <td class="py-3"><span class="px-2 py-0.5 text-xs rounded badge-warn">空倉待命</span></td>
-            </tr>
+            <!-- 由 JavaScript 根據 dashboard_data.json 動態渲染 SLOT-1 ~ SLOT-3 -->
           </tbody>
         </table>
       </div>
@@ -156,41 +134,108 @@
     <!-- 右側 1/3：最新系統執行紀錄 -->
     <div class="card p-5">
       <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider mb-4">🎯 最新策略訊號與帳本狀態</h2>
-      <div id="orders-container" class="space-y-3">
+      <div class="space-y-3">
         <div class="p-4 rounded-lg bg-gray-900 border border-gray-800">
           <div class="flex justify-between items-center">
             <span class="text-xs font-bold text-sky-400">系統即時回報</span>
             <span id="card-time" class="text-[11px] text-gray-400">--</span>
           </div>
           <div id="card-signal" class="text-base font-bold text-white mt-2">讀取 dashboard_data.json 中...</div>
-          <div class="text-xs text-gray-400 mt-2">觀察清單：2330, 2317, 1232, 2454</div>
-          <div class="text-[11px] text-emerald-400 mt-2">✔ 已啟用永豐金 2 折低消防護 (單筆 ≥ 3,510元)</div>
+          <div class="text-xs text-gray-400 mt-2">選股雷達：TWSE 全市場成交值前 20 強動態更新</div>
+          <div class="text-[11px] text-emerald-400 mt-2">✔ 已啟用台股 Tick 升降檔位自動對齊</div>
+          <div class="text-[11px] text-emerald-400 mt-1">✔ 已啟用永豐金 2 折低消防護 (單筆 ≥ 3,510元)</div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ======= 設定你的舊 6D 總操盤室網址 =======
-    // 請將下方引號內的網址改為你原本 6D 操盤室的完整 GitHub Pages 網址
-    const MAIN_WARROOM_URL = "https://eric80218.github.io/Stock-alert/";
+    // 請將下方引號內的網址改為你原本 6D 總操盤室的完整 GitHub Pages 網址
+    const MAIN_WARROOM_URL = "https://eric80218.github.io/";
     document.getElementById('main-warroom-link').href = MAIN_WARROOM_URL;
 
-    // 自動讀取與 main.py 同步產出的 dashboard_data.json
+    function renderPositionsTable(positionsObj, maxSlots = 3) {
+      const tbody = document.getElementById('positions-tbody');
+      tbody.innerHTML = '';
+      const symbols = Object.keys(positionsObj || {});
+
+      for (let i = 0; i < 3; i++) {
+        const slotNum = i + 1;
+        const sym = symbols[i];
+        const tr = document.createElement('tr');
+
+        if (sym) {
+          const pos = positionsObj[sym];
+          const entry = Number(pos.entry_price || 0);
+          const current = Number(pos.current_price || entry);
+          const shares = Number(pos.shares || 0);
+          const stop = Number(pos.ratchet_stop || 0);
+          const pnlPct = entry > 0 ? (((current - entry) / entry) * 100).toFixed(2) : '0.00';
+          const isProfit = Number(pnlPct) >= 0;
+          const pnlColor = isProfit ? 'text-emerald-400' : 'text-rose-400';
+          const sign = isProfit ? '+' : '';
+
+          tr.innerHTML = `
+            <td class="py-3 font-medium text-white">SLOT-${slotNum}</td>
+            <td class="py-3 font-bold text-sky-400">${sym}.TW <span class="text-xs text-gray-400 font-normal">(${shares} 股)</span></td>
+            <td class="py-3 text-gray-200">${entry.toFixed(1)} ➔ <span class="font-bold text-white">${current.toFixed(1)}</span></td>
+            <td class="py-3 text-amber-400 font-semibold">🛡️ ${stop.toFixed(1)} 元 <span class="text-[11px] text-gray-400">(最高 ${Number(pos.highest_price || current).toFixed(1)})</span></td>
+            <td class="py-3"><span class="px-2 py-0.5 text-xs rounded badge-pass ${pnlColor}">${sign}${pnlPct}% (6D分:${pos.score ?? '--'})</span></td>
+          `;
+        } else {
+          const isLockedByRegime = slotNum > maxSlots;
+          const statusBadge = isLockedByRegime
+            ? `<span class="px-2 py-0.5 text-xs rounded badge-halt">大盤防禦凍結</span>`
+            : `<span class="px-2 py-0.5 text-xs rounded badge-warn">空倉待命 (上限 1.5萬)</span>`;
+
+          tr.innerHTML = `
+            <td class="py-3 font-medium text-gray-400">SLOT-${slotNum}</td>
+            <td class="py-3 text-gray-500">-- (尚未建倉)</td>
+            <td class="py-3 text-gray-500">--</td>
+            <td class="py-3 text-gray-500">14D ATR 動態棘輪待命</td>
+            <td class="py-3">${statusBadge}</td>
+          `;
+        }
+        tbody.appendChild(tr);
+      }
+    }
+
     async function loadWarRoomData() {
       try {
         const res = await fetch('./dashboard_data.json?t=' + new Date().getTime());
-        if (!res.ok) return;
+        if (!res.ok) {
+          renderPositionsTable({}, 3);
+          return;
+        }
         const data = await res.json();
 
         document.getElementById('last-updated').textContent = data.last_updated || '--';
         document.getElementById('card-time').textContent = data.last_updated || '--';
         document.getElementById('daily-quota').textContent = `${data.daily_order_count ?? 0} / ${data.max_daily_orders ?? 3} 筆`;
         document.getElementById('nav-value').textContent = `NT$ ${(data.nav ?? 50000).toLocaleString()}`;
+
+        const rPnl = Number(data.realized_pnl ?? 0);
+        const pnlEl = document.getElementById('nav-pnl');
+        pnlEl.textContent = `累積已實現損益: ${rPnl >= 0 ? '+' : ''}NT$ ${rPnl.toLocaleString()}`;
+        pnlEl.className = `text-xs mt-1 ${rPnl >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+
         document.getElementById('available-cash').textContent = `NT$ ${(data.available_cash ?? 45000).toLocaleString()}`;
         document.getElementById('invested-cost').textContent = `目前已投入成本: NT$ ${(data.invested_cost ?? 0).toLocaleString()}`;
+
+        const posObj = data.positions || {};
+        const posCount = Object.keys(posObj).length;
+        const maxSlots = data.max_slots ?? 3;
+        document.getElementById('slot-usage').textContent = `${posCount} / ${maxSlots} 倉`;
         document.getElementById('slot-limit').textContent = `單倉最高上限: NT$ ${(data.single_slot_limit ?? 15000).toLocaleString()}`;
-        
+
+        if (data.market_regime) {
+          const regEl = document.getElementById('regime-status');
+          regEl.textContent = data.market_regime;
+          regEl.className = data.market_regime.includes('DEFENSIVE')
+            ? 'text-xs font-bold text-amber-400'
+            : 'text-xs font-bold text-emerald-400';
+        }
+
         const sig = data.latest_signal || '今日無符合條件標的';
         document.getElementById('latest-signal').textContent = sig;
         document.getElementById('card-signal').textContent = sig;
@@ -200,8 +245,10 @@
           badge.textContent = '🟢 Shioaji 實盤連線運行中';
           badge.className = 'px-3 py-1 rounded-full text-xs font-semibold badge-pass';
         }
+
+        renderPositionsTable(posObj, maxSlots);
       } catch (e) {
-        console.log('等待 GitHub Actions 產出 dashboard_data.json');
+        renderPositionsTable({}, 3);
       }
     }
     loadWarRoomData();
