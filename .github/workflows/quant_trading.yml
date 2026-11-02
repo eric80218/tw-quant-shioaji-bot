@@ -68,7 +68,7 @@ jobs:
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
-          git rm -f init_bot.py || true
           git add -A data/ docs/ src/ main.py
           git commit -m "chore: update war-room timestamp $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git pull --rebase -X theirs origin main || true
           git push
