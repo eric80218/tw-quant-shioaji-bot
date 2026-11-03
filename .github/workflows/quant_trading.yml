@@ -42,7 +42,7 @@ jobs:
         run: |
           python main.py
 
-      -       - name: Commit and Push War-Room Data
+      - name: Commit and Push War-Room Data
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
