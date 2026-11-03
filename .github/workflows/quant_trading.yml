@@ -24,14 +24,11 @@ jobs:
           python-version: '3.10'
           cache: 'pip'
 
-      - name: Remove Legacy Init Script
-        run: |
-          rm -f init_bot.py
-
       - name: Install Dependencies
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+          pip install requests yfinance pandas numpy
 
       - name: Clean Hidden Characters & Run 6D Quant Engine
         env:
@@ -43,9 +40,9 @@ jobs:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
           python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
-          python main.py || true
+          python main.py || echo "main.py 執行發生部分異常，啟動保底雷達掃描..."
           python -c "
-          import json, os
+          import json, os, yfinance as yf, numpy as np
           from datetime import datetime, timedelta, timezone
           tz = timezone(timedelta(hours=8))
           now_str = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
@@ -59,9 +56,31 @@ jobs:
               except Exception:
                   pass
           data['last_updated'] = now_str
+          if not data.get('scan_details'):
+              pool = ['2330','2454','2317','2382','3231','2357','2308','3711','2379','3034','1519','1513','2603','2609','2368','1232','1216','2881','2882','2891']
+              details = []
+              for sym in pool:
+                  try:
+                      df = yf.Ticker(sym + '.TW').history(period='2mo')
+                      if len(df) >= 20:
+                          c = float(df['Close'].iloc[-1])
+                          ma5 = float(df['Close'].rolling(5).mean().iloc[-1])
+                          ma20 = float(df['Close'].rolling(20).mean().iloc[-1])
+                          delta = df['Close'].diff()
+                          gain = delta.where(delta > 0, 0).rolling(14).mean()
+                          loss = (-delta.where(delta < 0, 0)).rolling(14).mean()
+                          rsi = 100 - (100 / (1 + (gain / loss)))
+                          r_now, r_prev = float(rsi.iloc[-1]), float(rsi.iloc[-2])
+                          score = round(r_now + ((c - ma5) / ma5 * 100), 1)
+                          passed = (c > ma5) and (c > ma20) and (r_now > r_prev)
+                          details.append({'symbol': sym, 'price': round(c, 1), 'score': score, 'status': 'PASS' if passed else 'WAIT'})
+                  except Exception:
+                      pass
+              details.sort(key=lambda x: x['score'], reverse=True)
+              data['scanned_pool'] = pool
+              data['scan_details'] = details
           with open(path, 'w', encoding='utf-8') as f:
               json.dump(data, f, ensure_ascii=False, indent=2)
-          print('Forced update dashboard_data.json timestamp to:', now_str)
           "
 
       - name: Commit and Push War-Room Data
@@ -69,6 +88,6 @@ jobs:
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
           git add -A data/ docs/ src/ main.py
-          git commit -m "chore: update war-room timestamp $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git commit -m "chore: update war-room and 20-stock radar $(date +'%Y-%m-%d %H:%M:%S')" || true
           git pull --rebase -X theirs origin main || true
           git push
