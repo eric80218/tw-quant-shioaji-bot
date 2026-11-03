@@ -16,12 +16,19 @@ class Strategy6D:
             "1519.TW", "1513.TW", "2603.TW", "2609.TW", "2368.TW",
             "1232.TW", "1216.TW", "2881.TW", "2882.TW", "2891.TW"
         ]
-        self.max_single_amount = 15000.0   # 單倉最高 15,000 元
-        self.min_single_amount = 3510.0    # 永豐金 2 折低消門檻
-        self.atr_multiplier = 2.0          # 跌破最高價 - 2.0 倍 ATR 觸發賣出
-        self.rotation_threshold = 7.5      # +7.5 分換股輪動門檻
+        self.fallback_names = {
+            "2330": "台積電", "2454": "聯發科", "2317": "鴻海", "2382": "廣達", "3231": "緯創",
+            "2357": "華碩", "2308": "台達電", "3711": "日月光投控", "2379": "瑞昱", "3034": "聯詠",
+            "1519": "華城", "1513": "中興電", "2603": "長榮", "2609": "陽明", "2368": "金像電",
+            "1232": "統一", "1216": "統一企業", "2881": "富邦金", "2882": "國泰金", "2891": "中信金"
+        }
+        self.max_single_amount = 15000.0   
+        self.min_single_amount = 3510.0    
+        self.atr_multiplier = 2.0          
+        self.rotation_threshold = 7.5      
         self.market_regime = "BULL (大盤多頭 ‧ 開放 3 倉)"
-        self.scan_details = []             # 儲存今日 20 強掃描結果供網頁顯示
+        self.scan_details = []             
+        self.stock_names = {}              # 儲存中文名稱對應表
         self.watch_list = watch_list or self.fetch_dynamic_top20()
 
     @staticmethod
@@ -74,14 +81,18 @@ class Strategy6D:
         try:
             res = requests.get(url, timeout=10)
             if res.status_code != 200:
+                self.stock_names = self.fallback_names
                 return self.fallback_list
 
             data = res.json()
             candidates = []
+            name_dict = {}
             for row in data:
                 code = str(row.get("Code", "")).strip()
+                name = str(row.get("Name", "")).strip()
                 if len(code) != 4 or not code.isdigit() or code.startswith("00"):
                     continue
+                name_dict[code] = name
                 try:
                     close_p = float(str(row.get("ClosingPrice", "0")).replace(",", ""))
                     trade_val = float(str(row.get("TradeValue", "0")).replace(",", ""))
@@ -93,11 +104,13 @@ class Strategy6D:
 
             candidates.sort(key=lambda x: x[1], reverse=True)
             top20 = [f"{c[0]}.TW" for c in candidates[:20]]
+            self.stock_names = name_dict
             if len(top20) >= 10:
                 return top20
         except Exception as e:
             print(f"-> 動態抓取異常 ({e})，自動切換為備援 20 強名單。")
 
+        self.stock_names = self.fallback_names
         return self.fallback_list
 
     def calculate_indicators(self, df: pd.DataFrame) -> pd.DataFrame:
@@ -125,7 +138,6 @@ class Strategy6D:
         current_hm = now_tw.hour * 100 + now_tw.minute
         self.scan_details = []
 
-        # === 第一階段：現有持倉 14D ATR 保本棘輪巡檢 (全天候隨時允許停損賣出) ===
         weakest_symbol = None
         weakest_score = 999.0
         atr_sell_order = None
@@ -180,17 +192,18 @@ class Strategy6D:
 
         risk_mgr.save_state()
 
-        # === 第二階段：掃描動態 20 強清單並更新戰情室雷達 ===
         best_candidate = None
         highest_score = -999.0
 
         for symbol_raw in self.watch_list:
             pure_sym = symbol_raw.replace(".TW", "").replace(".TWO", "")
+            stock_name = self.stock_names.get(pure_sym, pure_sym)
 
             if pure_sym in positions:
                 p_info = positions[pure_sym]
                 self.scan_details.append({
                     "symbol": pure_sym,
+                    "name": stock_name,
                     "price": p_info.get("current_price", p_info.get("entry_price", 0)),
                     "score": p_info.get("score", 0),
                     "status": "HOLDING"
@@ -216,6 +229,7 @@ class Strategy6D:
 
                 self.scan_details.append({
                     "symbol": pure_sym,
+                    "name": stock_name,
                     "price": round(close_p, 1),
                     "score": score,
                     "status": "PASS" if is_pass else "WAIT"
@@ -237,19 +251,15 @@ class Strategy6D:
 
         self.scan_details.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-        # 優先執行盤中停損單（不受時段限制，見破線即刻逃命）
         if atr_sell_order:
             return atr_sell_order
 
-        # 盤中防追高鎖：台股開盤期間 (09:00 ~ 12:44) 僅更新雷達與執行停損，等到 12:45 尾盤確認才開放買進與換股
         if 900 <= current_hm < 1245:
-            print(f"-> 【盤中防追高鎖】目前台灣時間 {now_tw.strftime('%H:%M')} 為盤中盯防時段，僅執行 ATR 停損監控，新倉買進將於 13:00 尾盤確認。")
             return None
 
         if not best_candidate:
             return None
 
-        # 情境 A：已達允許倉數上限，檢查是否觸發「+7.5 分換股輪動門檻」
         if len(positions) >= allowed_slots and weakest_symbol:
             score_diff = round(best_candidate["score"] - weakest_score, 2)
             if score_diff >= self.rotation_threshold:
@@ -270,7 +280,6 @@ class Strategy6D:
                 }
             return None
 
-        # 情境 B：尚有空倉，換算 15,000 元以內的零股數
         target_amount = min(self.max_single_amount, available_cash * 0.95)
         if target_amount < self.min_single_amount:
             return None
