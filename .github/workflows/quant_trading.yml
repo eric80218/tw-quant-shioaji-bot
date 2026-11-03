@@ -31,7 +31,7 @@ jobs:
           pip install -r requirements.txt
           pip install requests yfinance pandas numpy
 
-      - name: Clean Hidden Characters & Run 6D Quant Engine
+      - name: Run 6D Quant Trading Engine
         env:
           TZ: Asia/Taipei
           SHIOAJI_API_KEY: ${{ secrets.SHIOAJI_API_KEY }}
@@ -40,7 +40,6 @@ jobs:
           SHIOAJI_CA_BASE64: ${{ secrets.SHIOAJI_CA_BASE64 }}
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
-          python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
           python main.py
 
       - name: Commit and Push War-Room Data
@@ -48,6 +47,5 @@ jobs:
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
           git add -A data/ docs/ src/ main.py
-          git commit -m "chore: update war-room and Chinese stock names $(date +'%Y-%m-%d %H:%M:%S')" || true
-          git pull --rebase -X theirs origin main || true
-          git push
+          git commit -m "chore: update war-room and radar data $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git push origin main --force
