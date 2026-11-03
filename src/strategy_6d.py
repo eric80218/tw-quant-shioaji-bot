@@ -298,3 +298,4 @@ class Strategy6D:
             "ratchet_stop": best_candidate["ratchet_stop"],
             "reason": f"尾盤確認突破+Tick對齊 (棘輪停損 {best_candidate['ratchet_stop']}元)"
         }
+
