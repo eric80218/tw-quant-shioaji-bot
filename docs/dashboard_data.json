@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-03 13:46:58",
+  "last_updated": "2026-11-03 20:07:34",
   "is_live": false,
   "market_regime": "DEFENSIVE (0050跌破月線 100.6<109.6 ‧ 限縮 1 倉)",
   "daily_order_count": 1,
@@ -7,21 +7,21 @@
   "nav": 50000.0,
   "realized_pnl": 0.0,
   "available_cash": 45000.0,
-  "invested_cost": 14959.0,
+  "invested_cost": 14983.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
   "positions": {
     "1802": {
-      "shares": 220,
-      "entry_price": 67.9,
-      "current_price": 67.9,
-      "highest_price": 67.9,
-      "ratchet_stop": 58.2,
-      "score": 66.2,
+      "shares": 221,
+      "entry_price": 67.7,
+      "current_price": 67.7,
+      "highest_price": 67.7,
+      "ratchet_stop": 58.1,
+      "score": 65.9,
       "buy_date": "2026-11-03"
     }
   },
-  "latest_signal": "1802 買進 220股 @ 67.9元",
+  "latest_signal": "1802 買進 221股 @ 67.7元",
   "scanned_pool": [
     "2308",
     "1303",
@@ -48,15 +48,15 @@
     {
       "symbol": "1802",
       "name": "台玻",
-      "price": 67.8,
-      "score": 66.2,
+      "price": 67.7,
+      "score": 65.9,
       "status": "PASS"
     },
     {
       "symbol": "2317",
       "name": "鴻海",
-      "price": 244.0,
-      "score": 52.0,
+      "price": 245.5,
+      "score": 53.9,
       "status": "WAIT"
     },
     {
@@ -76,8 +76,8 @@
     {
       "symbol": "2368",
       "name": "金像電",
-      "price": 962.0,
-      "score": 27.3,
+      "price": 970.0,
+      "score": 28.3,
       "status": "WAIT"
     },
     {
@@ -118,8 +118,8 @@
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 614.0,
-      "score": 20.2,
+      "price": 616.0,
+      "score": 20.6,
       "status": "WAIT"
     },
     {
@@ -132,29 +132,29 @@
     {
       "symbol": "6213",
       "name": "聯茂",
-      "price": 597.0,
-      "score": 17.6,
+      "price": 600.0,
+      "score": 18.1,
       "status": "WAIT"
     },
     {
       "symbol": "2327",
       "name": "國巨*",
-      "price": 452.5,
-      "score": 16.1,
+      "price": 453.0,
+      "score": 16.2,
       "status": "WAIT"
     },
     {
       "symbol": "2301",
       "name": "光寶科",
-      "price": 227.0,
-      "score": 15.5,
+      "price": 228.0,
+      "score": 16.1,
       "status": "WAIT"
     },
     {
       "symbol": "3037",
       "name": "欣興",
-      "price": 899.0,
-      "score": 14.7,
+      "price": 902.0,
+      "score": 15.1,
       "status": "WAIT"
     },
     {
@@ -181,8 +181,8 @@
     {
       "symbol": "2303",
       "name": "聯電",
-      "price": 102.0,
-      "score": 3.0,
+      "price": 103.0,
+      "score": 4.0,
       "status": "WAIT"
     }
   ],
