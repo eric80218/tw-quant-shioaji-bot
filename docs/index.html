@@ -64,7 +64,7 @@
     <div class="card p-5">
       <div class="text-xs text-gray-400 uppercase">最新 6D 掃描訊號結果</div>
       <div id="latest-signal" class="text-sm font-bold text-emerald-400 mt-2 break-words">等待排程掃描...</div>
-      <div class="text-xs text-gray-400 mt-1">每日 08:50 / 13:00 自動巡檢</div>
+      <div class="text-xs text-gray-400 mt-1">每日 6 次高頻自動巡檢</div>
     </div>
   </section>
 
@@ -148,25 +148,23 @@
     </div>
   </div>
 
-  <!-- 新增：今日 TWSE 動態 20 強即時掃描雷達面板 -->
+  <!-- 今日 TWSE 動態 20 強即時掃描雷達面板 -->
   <section class="card p-5">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2">
       <div>
         <h2 class="text-sm font-semibold text-gray-300 uppercase tracking-wider">📡 今日 TWSE 全市場動態 20 強掃描雷達 (依 6D 動能積分排序)</h2>
-        <p class="text-xs text-gray-400 mt-0.5">綠框代表符合「站上 MA5 + 站上月線 + RSI 勾頭」右側買點；藍框為目前已持倉標的</p>
+        <p class="text-xs text-gray-400 mt-0.5">綠框代表符合右側買點；藍框為目前已持倉標的</p>
       </div>
       <span id="scan-count-badge" class="px-3 py-1 rounded-full text-xs font-semibold badge-pass">已掃描 0 檔標的</span>
     </div>
-    <div id="scan-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3">
-      <!-- 由 JavaScript 自動渲染 20 檔掃描卡片 -->
-    </div>
+    <div id="scan-grid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3"></div>
   </section>
 
   <script>
     const MAIN_WARROOM_URL = "https://eric80218.github.io/";
     document.getElementById('main-warroom-link').href = MAIN_WARROOM_URL;
 
-    function renderPositionsTable(positionsObj, maxSlots = 3) {
+    function renderPositionsTable(positionsObj, stockNames = {}, maxSlots = 3) {
       const tbody = document.getElementById('positions-tbody');
       tbody.innerHTML = '';
       const symbols = Object.keys(positionsObj || {});
@@ -182,6 +180,7 @@
           const current = Number(pos.current_price || entry);
           const shares = Number(pos.shares || 0);
           const stop = Number(pos.ratchet_stop || 0);
+          const name = stockNames[sym] || sym;
           const pnlPct = entry > 0 ? (((current - entry) / entry) * 100).toFixed(2) : '0.00';
           const isProfit = Number(pnlPct) >= 0;
           const pnlColor = isProfit ? 'text-emerald-400' : 'text-rose-400';
@@ -189,22 +188,22 @@
 
           tr.innerHTML = `
             <td class="py-3 font-medium text-white">SLOT-${slotNum}</td>
-            <td class="py-3 font-bold text-sky-400">${sym}.TW <span class="text-xs text-gray-400 font-normal">(${shares} 股)</span></td>
+            <td class="py-3 font-bold text-sky-400">${name} (${sym}) <span class="text-xs text-gray-400 font-normal">(${shares}股)</span></td>
             <td class="py-3 text-gray-200">${entry.toFixed(1)} ➔ <span class="font-bold text-white">${current.toFixed(1)}</span></td>
-            <td class="py-3 text-amber-400 font-semibold">🛡️ ${stop.toFixed(1)} 元 <span class="text-[11px] text-gray-400">(最高 ${Number(pos.highest_price || current).toFixed(1)})</span></td>
+            <td class="py-3 text-amber-400 font-semibold">🛡️ ${stop.toFixed(1)} 元</td>
             <td class="py-3"><span class="px-2 py-0.5 text-xs rounded badge-pass ${pnlColor}">${sign}${pnlPct}% (6D分:${pos.score ?? '--'})</span></td>
           `;
         } else {
           const isLockedByRegime = slotNum > maxSlots;
           const statusBadge = isLockedByRegime
             ? `<span class="px-2 py-0.5 text-xs rounded badge-halt">大盤防禦凍結</span>`
-            : `<span class="px-2 py-0.5 text-xs rounded badge-warn">空倉待命 (上限 1.5萬)</span>`;
+            : `<span class="px-2 py-0.5 text-xs rounded badge-warn">空倉待命</span>`;
 
           tr.innerHTML = `
             <td class="py-3 font-medium text-gray-400">SLOT-${slotNum}</td>
             <td class="py-3 text-gray-500">-- (尚未建倉)</td>
             <td class="py-3 text-gray-500">--</td>
-            <td class="py-3 text-gray-500">14D ATR 動態棘輪待命</td>
+            <td class="py-3 text-gray-500">14D ATR 棘輪待命</td>
             <td class="py-3">${statusBadge}</td>
           `;
         }
@@ -212,14 +211,15 @@
       }
     }
 
-    function renderScanRadar(scanDetails, scannedPool) {
+    function renderScanRadar(scanDetails, scannedPool, stockNames = {}) {
       const grid = document.getElementById('scan-grid');
       const countBadge = document.getElementById('scan-count-badge');
       const poolSummary = document.getElementById('pool-summary');
       grid.innerHTML = '';
 
       if (scannedPool && scannedPool.length > 0) {
-        poolSummary.textContent = `今日動態 20 強池 (${scannedPool.length}檔)：${scannedPool.slice(0, 8).join(', ')}...`;
+        const poolNames = scannedPool.slice(0, 8).map(s => stockNames[s] || s);
+        poolSummary.textContent = `今日動態 20 強池 (${scannedPool.length}檔)：${poolNames.join(', ')}...`;
       }
 
       if (scanDetails && scanDetails.length > 0) {
@@ -236,13 +236,16 @@
             badgeHtml = `<span class="px-1.5 py-0.5 text-[10px] rounded badge-hold">📦 持倉中</span>`;
           }
 
+          const stockName = item.name || stockNames[item.symbol] || item.symbol;
+
           const div = document.createElement('div');
           div.className = `p-3 rounded-lg border ${borderClass} flex flex-col justify-between`;
           div.innerHTML = `
             <div class="flex justify-between items-center">
-              <span class="text-sm font-bold text-white">#${idx + 1} ${item.symbol}</span>
+              <span class="text-sm font-bold text-white">#${idx + 1} ${stockName}</span>
               ${badgeHtml}
             </div>
+            <div class="mt-1 text-xs text-sky-400 font-semibold">${item.symbol}.TW</div>
             <div class="mt-2 flex justify-between items-baseline">
               <span class="text-xs text-gray-400">現價 <b class="text-gray-200">${item.price}</b></span>
               <span class="text-xs font-semibold text-amber-400">${item.score} 分</span>
@@ -250,17 +253,9 @@
           `;
           grid.appendChild(div);
         });
-      } else if (scannedPool && scannedPool.length > 0) {
-        countBadge.textContent = `已載入 ${scannedPool.length} 檔觀察池`;
-        scannedPool.forEach((sym) => {
-          const div = document.createElement('div');
-          div.className = 'p-3 rounded-lg border border-gray-800 bg-gray-900 text-center';
-          div.innerHTML = `<span class="text-sm font-bold text-gray-300">${sym}.TW</span>`;
-          grid.appendChild(div);
-        });
       } else {
         countBadge.textContent = '等待下次排程寫入';
-        grid.innerHTML = `<div class="col-span-full text-xs text-gray-500 py-4 text-center">請至 GitHub Actions 點選 Run workflow 執行一次，即可產生今日 20 強即時掃描雷達數據！</div>`;
+        grid.innerHTML = `<div class="col-span-full text-xs text-gray-500 py-4 text-center">請至 GitHub Actions 點選 Run workflow 執行一次，即可載入 20 強中文股名與雷達數據！</div>`;
       }
     }
 
@@ -268,11 +263,12 @@
       try {
         const res = await fetch('./dashboard_data.json?t=' + new Date().getTime());
         if (!res.ok) {
-          renderPositionsTable({}, 3);
-          renderScanRadar([], []);
+          renderPositionsTable({}, {}, 3);
+          renderScanRadar([], [], {});
           return;
         }
         const data = await res.json();
+        const stockNames = data.stock_names || {};
 
         document.getElementById('last-updated').textContent = data.last_updated || '--';
         document.getElementById('card-time').textContent = data.last_updated || '--';
@@ -311,11 +307,11 @@
           badge.className = 'px-3 py-1 rounded-full text-xs font-semibold badge-pass';
         }
 
-        renderPositionsTable(posObj, maxSlots);
-        renderScanRadar(data.scan_details || [], data.scanned_pool || []);
+        renderPositionsTable(posObj, stockNames, maxSlots);
+        renderScanRadar(data.scan_details || [], data.scanned_pool || [], stockNames);
       } catch (e) {
-        renderPositionsTable({}, 3);
-        renderScanRadar([], []);
+        renderPositionsTable({}, {}, 3);
+        renderScanRadar([], [], {});
       }
     }
     loadWarRoomData();
