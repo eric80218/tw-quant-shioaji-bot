@@ -22,17 +22,18 @@ class Strategy6D:
             "1519": "華城", "1513": "中興電", "2603": "長榮", "2609": "陽明", "2368": "金像電",
             "1232": "統一", "1216": "統一企業", "2881": "富邦金", "2882": "國泰金", "2891": "中信金"
         }
-        self.max_single_amount = 15000.0   
-        self.min_single_amount = 3510.0    
-        self.atr_multiplier = 2.0          
-        self.rotation_threshold = 7.5      
+        self.max_single_amount = 15000.0   # 單倉最高 15,000 元
+        self.min_single_amount = 3510.0    # 永豐金 2 折低消門檻
+        self.atr_multiplier = 2.0          # 跌破最高價 - 2.0 倍 ATR 觸發賣出
+        self.rotation_threshold = 7.5      # +7.5 分換股輪動門檻
         self.market_regime = "BULL (大盤多頭 ‧ 開放 3 倉)"
-        self.scan_details = []             
+        self.scan_details = []             # 儲存今日 20 強掃描結果供網頁顯示
         self.stock_names = {}              # 儲存中文名稱對應表
         self.watch_list = watch_list or self.fetch_dynamic_top20()
 
     @staticmethod
     def get_tick_size(price: float) -> float:
+        """台股官方 6 級價格升降單位 (Tick Size)"""
         if price < 10:
             return 0.01
         elif price < 50:
@@ -47,6 +48,7 @@ class Strategy6D:
             return 5.0
 
     def align_tw_tick(self, raw_price: float, side: str = "NONE", aggressive_ticks: int = 1) -> float:
+        """將價格精準對齊台股 Tick 檔位，避免 Shioaji API 退單"""
         tick = self.get_tick_size(raw_price)
         if side == "BUY":
             adjusted = raw_price + (tick * aggressive_ticks)
@@ -59,6 +61,7 @@ class Strategy6D:
         return round(steps * tick, 2)
 
     def check_market_regime(self) -> int:
+        """大盤系統性風險濾網：檢查 0050.TW 是否站上 20 日月線"""
         try:
             df = yf.Ticker("0050.TW").history(period="3mo")
             if df.empty or len(df) < 22:
@@ -76,7 +79,7 @@ class Strategy6D:
             return 3
 
     def fetch_dynamic_top20(self) -> list:
-        print("-> 【動態選股池】正在連線台灣證交所 (TWSE) 抓取最新全市場熱門 20 強...")
+        print("-> 【動態選股池】正在連線台灣證交所 (TWSE) 抓取最新全市場熱門 20 強與中文股名...")
         url = "https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL"
         try:
             res = requests.get(url, timeout=10)
@@ -138,6 +141,7 @@ class Strategy6D:
         current_hm = now_tw.hour * 100 + now_tw.minute
         self.scan_details = []
 
+        # === 第一階段：現有持倉 14D ATR 保本棘輪巡檢 (全天候允許停損賣出) ===
         weakest_symbol = None
         weakest_score = 999.0
         atr_sell_order = None
@@ -192,6 +196,7 @@ class Strategy6D:
 
         risk_mgr.save_state()
 
+        # === 第二階段：掃描動態 20 強清單並更新戰情室雷達（帶入中文股名） ===
         best_candidate = None
         highest_score = -999.0
 
@@ -254,6 +259,7 @@ class Strategy6D:
         if atr_sell_order:
             return atr_sell_order
 
+        # 盤中防追高鎖：09:00 ~ 12:44 僅巡檢停損，不買進新股
         if 900 <= current_hm < 1245:
             return None
 
