@@ -42,10 +42,11 @@ jobs:
         run: |
           python main.py
 
-      - name: Commit and Push War-Room Data
+      -       - name: Commit and Push War-Room Data
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
-          git add -A data/ docs/ src/ main.py
-          git commit -m "chore: update war-room and radar data $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git status
+          git add docs/dashboard_data.json
+          git commit -m "chore: force update dashboard_data.json $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
           git push origin main --force
