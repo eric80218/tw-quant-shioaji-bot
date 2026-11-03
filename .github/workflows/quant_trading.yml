@@ -2,11 +2,8 @@ name: TW 6D Quant Auto-Trading & WarRoom
 
 on:
   schedule:
-    # 台灣時間 08:50 (盤前庫存對帳與初始掃描)
     - cron: '50 0 * * 1-5'
-    # 台灣時間 09:30, 10:30, 11:30, 12:30 (盤中每小時防崩盤 ATR 停損盯防)
     - cron: '30 1,2,3,4 * * 1-5'
-    # 台灣時間 13:00 (尾盤確認右側突破買進與 +7.5 分換股輪動)
     - cron: '0 5 * * 1-5'
   workflow_dispatch:
 
@@ -32,7 +29,6 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install requests yfinance pandas numpy
 
       - name: Clean Hidden Characters & Run 6D Quant Engine
         env:
@@ -44,54 +40,13 @@ jobs:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
           python -c "import glob; [open(f, 'w', encoding='utf-8').write(open(f, encoding='utf-8').read().replace('\u200b', '').replace('\ufeff', '').replace('\u00a0', ' ')) for f in glob.glob('**/*.py', recursive=True)]"
-          python main.py || echo "main.py 執行發生部分異常，啟動保底雷達掃描..."
-          python -c "
-          import json, os, yfinance as yf, numpy as np
-          from datetime import datetime, timedelta, timezone
-          tz = timezone(timedelta(hours=8))
-          now_str = datetime.now(tz).strftime('%Y-%m-%d %H:%M:%S')
-          os.makedirs('docs', exist_ok=True)
-          path = 'docs/dashboard_data.json'
-          data = {}
-          if os.path.exists(path):
-              try:
-                  with open(path, 'r', encoding='utf-8') as f:
-                      data = json.load(f)
-              except Exception:
-                  pass
-          data['last_updated'] = now_str
-          if not data.get('scan_details'):
-              pool = ['2330','2454','2317','2382','3231','2357','2308','3711','2379','3034','1519','1513','2603','2609','2368','1232','1216','2881','2882','2891']
-              details = []
-              for sym in pool:
-                  try:
-                      df = yf.Ticker(sym + '.TW').history(period='2mo')
-                      if len(df) >= 20:
-                          c = float(df['Close'].iloc[-1])
-                          ma5 = float(df['Close'].rolling(5).mean().iloc[-1])
-                          ma20 = float(df['Close'].rolling(20).mean().iloc[-1])
-                          delta = df['Close'].diff()
-                          gain = delta.where(delta > 0, 0).rolling(14).mean()
-                          loss = (-delta.where(delta < 0, 0).rolling(14).mean()
-                          rsi = 100 - (100 / (1 + (gain / loss)))
-                          r_now, r_prev = float(rsi.iloc[-1]), float(rsi.iloc[-2])
-                          score = round(r_now + ((c - ma5) / ma5 * 100), 1)
-                          passed = (c > ma5) and (c > ma20) and (r_now > r_prev)
-                          details.append({'symbol': sym, 'price': round(c, 1), 'score': score, 'status': 'PASS' if passed else 'WAIT'})
-                  except Exception:
-                      pass
-              details.sort(key=lambda x: x['score'], reverse=True)
-              data['scanned_pool'] = pool
-              data['scan_details'] = details
-          with open(path, 'w', encoding='utf-8') as f:
-              json.dump(data, f, ensure_ascii=False, indent=2)
-          "
+          python main.py
 
       - name: Commit and Push War-Room Data
         run: |
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
           git add -A data/ docs/ src/ main.py
-          git commit -m "chore: update war-room and 20-stock radar $(date +'%Y-%m-%d %H:%M:%S')" || true
+          git commit -m "chore: update war-room and stock names $(date +'%Y-%m-%d %H:%M:%S')" || true
           git pull --rebase -X theirs origin main || true
           git push
