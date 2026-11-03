@@ -1,16 +1,17 @@
 {
-  "last_updated": "2026-11-03 08:08:20",
+  "last_updated": "2026-11-03 12:13:22",
   "is_live": false,
+  "market_regime": "BULL (大盤多頭 ‧ 系統安全防護中)",
   "daily_order_count": 0,
   "max_daily_orders": 3,
-  "nav": 50000.0,
-  "realized_pnl": 0.0,
-  "available_cash": 45000.0,
-  "invested_cost": 0.0,
-  "single_slot_limit": 15000.0,
+  "nav": 50000,
+  "realized_pnl": 0,
+  "available_cash": 45000,
+  "invested_cost": 0,
+  "single_slot_limit": 15000,
   "max_slots": 3,
   "positions": {},
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號",
+  "latest_signal": "系統自動巡檢正常 ‧ cannot import name 'RiskManagement' from 'src.risk_management' (/home/runner/work/tw-quant-shioaji-bot/tw-quant-shioaji-bot/src/risk_management.py)",
   "scanned_pool": [
     "2330",
     "2454",
@@ -35,124 +36,166 @@
   ],
   "scan_details": [
     {
-      "symbol": "1232",
-      "price": 164.0,
-      "score": 75.7,
-      "status": "PASS"
-    },
-    {
-      "symbol": "1216",
-      "price": 80.6,
-      "score": 74.1,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2603",
-      "price": 274.5,
-      "score": 71.0,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2891",
-      "price": 75.0,
-      "score": 70.2,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3034",
-      "price": 571.0,
-      "score": 61.5,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2379",
-      "price": 785.0,
-      "score": 61.4,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2882",
-      "price": 116.0,
-      "score": 58.2,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2317",
-      "price": 251.0,
-      "score": 57.0,
-      "status": "PASS"
-    },
-    {
-      "symbol": "2609",
-      "price": 64.0,
-      "score": 53.2,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2881",
-      "price": 159.5,
-      "score": 50.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2382",
-      "price": 318.0,
-      "score": 45.4,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3231",
-      "price": 181.5,
-      "score": 40.0,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2368",
-      "price": 1060.0,
-      "score": 35.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2357",
-      "price": 912.0,
-      "score": 34.6,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3711",
-      "price": 674.0,
-      "score": 32.4,
+      "symbol": "2330",
+      "name": "台積電",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     },
     {
       "symbol": "2454",
-      "price": 3970.0,
-      "score": 26.6,
+      "name": "聯發科",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     },
     {
-      "symbol": "1513",
-      "price": 154.0,
-      "score": 18.5,
+      "symbol": "2317",
+      "name": "鴻海",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     },
     {
-      "symbol": "1519",
-      "price": 555.0,
-      "score": 14.9,
+      "symbol": "2382",
+      "name": "廣達",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     },
     {
-      "symbol": "2330",
-      "price": 2330.0,
-      "score": 14.8,
+      "symbol": "3231",
+      "name": "緯創",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2357",
+      "name": "華碩",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     },
     {
       "symbol": "2308",
-      "price": 1355.0,
-      "score": 7.1,
+      "name": "台達電",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3711",
+      "name": "日月光投控",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2379",
+      "name": "瑞昱",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3034",
+      "name": "聯詠",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "1519",
+      "name": "華城",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "1513",
+      "name": "中興電",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2603",
+      "name": "長榮",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2609",
+      "name": "陽明",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2368",
+      "name": "金像電",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "1232",
+      "name": "統一",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "1216",
+      "name": "統一企業",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2881",
+      "name": "富邦金",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2882",
+      "name": "國泰金",
+      "price": 100.0,
+      "score": 50.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2891",
+      "name": "中信金",
+      "price": 100.0,
+      "score": 50.0,
       "status": "WAIT"
     }
-  ]
+  ],
+  "stock_names": {
+    "2330": "台積電",
+    "2454": "聯發科",
+    "2317": "鴻海",
+    "2382": "廣達",
+    "3231": "緯創",
+    "2357": "華碩",
+    "2308": "台達電",
+    "3711": "日月光投控",
+    "2379": "瑞昱",
+    "3034": "聯詠",
+    "1519": "華城",
+    "1513": "中興電",
+    "2603": "長榮",
+    "2609": "陽明",
+    "2368": "金像電",
+    "1232": "統一",
+    "1216": "統一企業",
+    "2881": "富邦金",
+    "2882": "國泰金",
+    "2891": "中信金"
+  }
 }
