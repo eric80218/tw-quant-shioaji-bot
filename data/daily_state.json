@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-04",
+  "order_count": 0,
+  "executed_hashes": [],
+  "invested_cost": 14821.0,
+  "realized_pnl": 0.0,
+  "positions": {
+    "1802": {
+      "shares": 800,
+      "entry_price": 18.5,
+      "current_price": 18.5,
+      "highest_price": 18.5,
+      "ratchet_stop": 17.2,
+      "score": 62.5,
+      "buy_date": "2026-11-03"
+    }
+  }
+}
