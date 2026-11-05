@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-05 13:46:27",
+  "last_updated": "2026-11-05 15:28:12",
   "is_live": false,
-  "market_regime": "DEFENSIVE (0050跌破月線 97.1<108.6 ‧ 限縮 1 倉)",
+  "market_regime": "DEFENSIVE (0050跌破月線 97.2<108.6 ‧ 限縮 1 倉)",
   "daily_order_count": 0,
   "max_daily_orders": 3,
   "nav": 50000.0,
@@ -76,8 +76,8 @@
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 571.0,
-      "score": 21.7,
+      "price": 572.0,
+      "score": 22.0,
       "status": "WAIT"
     },
     {
@@ -104,8 +104,8 @@
     {
       "symbol": "4958",
       "name": "臻鼎-KY",
-      "price": 394.5,
-      "score": 18.7,
+      "price": 394.0,
+      "score": 18.6,
       "status": "WAIT"
     },
     {
@@ -174,8 +174,8 @@
     {
       "symbol": "2308",
       "name": "台達電",
-      "price": 1125.0,
-      "score": 2.4,
+      "price": 1130.0,
+      "score": 2.8,
       "status": "WAIT"
     },
     {
