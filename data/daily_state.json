@@ -1,18 +1,10 @@
 {
   "date": "2026-11-06",
-  "order_count": 0,
-  "executed_hashes": [],
-  "invested_cost": 14821.0,
-  "realized_pnl": 0.0,
-  "positions": {
-    "1802": {
-      "shares": 800,
-      "entry_price": 18.5,
-      "current_price": 60.1,
-      "highest_price": 66.7,
-      "ratchet_stop": 56.9,
-      "score": 38.76,
-      "buy_date": "2026-11-03"
-    }
-  }
+  "order_count": 1,
+  "executed_hashes": [
+    "20261106_TW_1802_SELL_ATR"
+  ],
+  "invested_cost": 0.0,
+  "realized_pnl": 28586.0,
+  "positions": {}
 }
