@@ -1,8 +1,20 @@
 {
   "date": "2026-11-09",
-  "order_count": 0,
-  "executed_hashes": [],
-  "invested_cost": 0.0,
+  "order_count": 1,
+  "executed_hashes": [
+    "20261109_TW_6446_BUY_6D"
+  ],
+  "invested_cost": 13770.0,
   "realized_pnl": 28586.0,
-  "positions": {}
+  "positions": {
+    "6446": {
+      "shares": 10,
+      "entry_price": 1375.0,
+      "current_price": 1375.0,
+      "highest_price": 1375.0,
+      "ratchet_stop": 1235.0,
+      "score": 78.4,
+      "buy_date": "2026-11-09"
+    }
+  }
 }

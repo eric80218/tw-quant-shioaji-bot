@@ -1,17 +1,27 @@
 {
-  "last_updated": "2026-11-09 09:47:13",
+  "last_updated": "2026-11-09 15:16:50",
   "is_live": false,
-  "market_regime": "DEFENSIVE (0050跌破月線 96.2<105.7 ‧ 限縮 1 倉)",
-  "daily_order_count": 0,
+  "market_regime": "DEFENSIVE (0050跌破月線 97.4<105.7 ‧ 限縮 1 倉)",
+  "daily_order_count": 1,
   "max_daily_orders": 3,
   "nav": 78586.0,
   "realized_pnl": 28586.0,
   "available_cash": 70727.0,
-  "invested_cost": 0.0,
+  "invested_cost": 13770.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
-  "positions": {},
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號",
+  "positions": {
+    "6446": {
+      "shares": 10,
+      "entry_price": 1375.0,
+      "current_price": 1375.0,
+      "highest_price": 1375.0,
+      "ratchet_stop": 1235.0,
+      "score": 78.4,
+      "buy_date": "2026-11-09"
+    }
+  },
+  "latest_signal": "6446 買進 10股 @ 1375.0元",
   "scanned_pool": [
     "2308",
     "3037",
@@ -38,22 +48,15 @@
     {
       "symbol": "6446",
       "name": "藥華藥",
-      "price": 1335.0,
-      "score": 73.9,
+      "price": 1370.0,
+      "score": 78.4,
       "status": "PASS"
     },
     {
       "symbol": "2317",
       "name": "鴻海",
-      "price": 238.0,
-      "score": 49.6,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3231",
-      "name": "緯創",
-      "price": 170.5,
-      "score": 43.3,
+      "price": 239.0,
+      "score": 50.6,
       "status": "WAIT"
     },
     {
@@ -64,6 +67,13 @@
       "status": "WAIT"
     },
     {
+      "symbol": "3231",
+      "name": "緯創",
+      "price": 168.5,
+      "score": 40.7,
+      "status": "WAIT"
+    },
+    {
       "symbol": "6770",
       "name": "力積電",
       "price": 58.1,
@@ -71,10 +81,24 @@
       "status": "WAIT"
     },
     {
+      "symbol": "3481",
+      "name": "群創",
+      "price": 39.7,
+      "score": 37.4,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2344",
+      "name": "華邦電",
+      "price": 132.5,
+      "score": 37.2,
+      "status": "WAIT"
+    },
+    {
       "symbol": "2382",
       "name": "廣達",
-      "price": 299.0,
-      "score": 39.3,
+      "price": 296.5,
+      "score": 36.6,
       "status": "WAIT"
     },
     {
@@ -85,31 +109,17 @@
       "status": "WAIT"
     },
     {
-      "symbol": "2344",
-      "name": "華邦電",
-      "price": 131.5,
-      "score": 35.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3481",
-      "name": "群創",
-      "price": 39.2,
-      "score": 35.3,
+      "symbol": "3711",
+      "name": "日月光投控",
+      "price": 561.0,
+      "score": 30.9,
       "status": "WAIT"
     },
     {
       "symbol": "2409",
       "name": "友達",
-      "price": 28.5,
-      "score": 30.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3711",
-      "name": "日月光投控",
-      "price": 560.0,
-      "score": 30.6,
+      "price": 28.2,
+      "score": 29.3,
       "status": "WAIT"
     },
     {
@@ -122,15 +132,15 @@
     {
       "symbol": "2368",
       "name": "金像電",
-      "price": 883.0,
-      "score": 25.7,
+      "price": 894.0,
+      "score": 27.6,
       "status": "WAIT"
     },
     {
       "symbol": "4958",
       "name": "臻鼎-KY",
-      "price": 394.0,
-      "score": 22.7,
+      "price": 398.0,
+      "score": 24.4,
       "status": "WAIT"
     },
     {
@@ -141,10 +151,17 @@
       "status": "WAIT"
     },
     {
+      "symbol": "3189",
+      "name": "景碩",
+      "price": 690.0,
+      "score": 19.9,
+      "status": "WAIT"
+    },
+    {
       "symbol": "2303",
       "name": "聯電",
-      "price": 96.8,
-      "score": 19.8,
+      "price": 96.7,
+      "score": 19.6,
       "status": "WAIT"
     },
     {
@@ -155,24 +172,17 @@
       "status": "WAIT"
     },
     {
-      "symbol": "3189",
-      "name": "景碩",
-      "price": 682.0,
-      "score": 18.1,
+      "symbol": "8046",
+      "name": "南電",
+      "price": 933.0,
+      "score": 14.5,
       "status": "WAIT"
     },
     {
       "symbol": "3037",
       "name": "欣興",
-      "price": 755.0,
-      "score": 12.6,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "8046",
-      "name": "南電",
-      "price": 913.0,
-      "score": 10.7,
+      "price": 757.0,
+      "score": 13.1,
       "status": "WAIT"
     }
   ],
