@@ -10,10 +10,10 @@
     "6446": {
       "shares": 10,
       "entry_price": 1375.0,
-      "current_price": 1375.0,
+      "current_price": 1370.0,
       "highest_price": 1375.0,
-      "ratchet_stop": 1235.0,
-      "score": 78.4,
+      "ratchet_stop": 1240.0,
+      "score": 78.43,
       "buy_date": "2026-11-09"
     }
   }
