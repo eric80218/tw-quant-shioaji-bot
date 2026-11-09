@@ -1,9 +1,7 @@
 {
-  "date": "2026-11-06",
-  "order_count": 1,
-  "executed_hashes": [
-    "20261106_TW_1802_SELL_ATR"
-  ],
+  "date": "2026-11-09",
+  "order_count": 0,
+  "executed_hashes": [],
   "invested_cost": 0.0,
   "realized_pnl": 28586.0,
   "positions": {}
