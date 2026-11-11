@@ -1,17 +1,27 @@
 {
-  "last_updated": "2026-11-11 15:16:33",
+  "last_updated": "2026-11-11 15:52:31",
   "is_live": false,
   "market_regime": "DEFENSIVE (0050跌破月線 103.2<105.1 ‧ 限縮 1 倉)",
-  "daily_order_count": 1,
+  "daily_order_count": 2,
   "max_daily_orders": 3,
   "nav": 78057.0,
   "realized_pnl": 28057.0,
-  "available_cash": 56957.0,
-  "invested_cost": 0.0,
+  "available_cash": 70251.0,
+  "invested_cost": 14978.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
-  "positions": {},
-  "latest_signal": "6446 賣出 10股 @ 1330.0元",
+  "positions": {
+    "1802": {
+      "shares": 195,
+      "entry_price": 76.7,
+      "current_price": 76.7,
+      "highest_price": 76.7,
+      "ratchet_stop": 66.1,
+      "score": 78.7,
+      "buy_date": "2026-11-11"
+    }
+  },
+  "latest_signal": "1802 買進 195股 @ 76.7元",
   "scanned_pool": [
     "1303",
     "2327",
@@ -46,8 +56,8 @@
       "symbol": "6446",
       "name": "藥華藥",
       "price": 1335.0,
-      "score": 66.98,
-      "status": "HOLDING"
+      "score": 67.0,
+      "status": "PASS"
     },
     {
       "symbol": "1303",
