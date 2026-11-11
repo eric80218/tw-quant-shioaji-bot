@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-11-11 15:52:31",
+  "last_updated": "2026-11-11 20:27:55",
   "is_live": false,
-  "market_regime": "DEFENSIVE (0050跌破月線 103.2<105.1 ‧ 限縮 1 倉)",
+  "market_regime": "DEFENSIVE (0050跌破月線 103.2<104.5 ‧ 限縮 1 倉)",
   "daily_order_count": 2,
   "max_daily_orders": 3,
   "nav": 78057.0,
   "realized_pnl": 28057.0,
-  "available_cash": 70251.0,
+  "available_cash": 55273.0,
   "invested_cost": 14978.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
@@ -17,11 +17,11 @@
       "current_price": 76.7,
       "highest_price": 76.7,
       "ratchet_stop": 66.1,
-      "score": 78.7,
+      "score": 78.68,
       "buy_date": "2026-11-11"
     }
   },
-  "latest_signal": "1802 買進 195股 @ 76.7元",
+  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號",
   "scanned_pool": [
     "1303",
     "2327",
@@ -49,8 +49,8 @@
       "symbol": "1802",
       "name": "台玻",
       "price": 76.7,
-      "score": 78.7,
-      "status": "PASS"
+      "score": 78.68,
+      "status": "HOLDING"
     },
     {
       "symbol": "6446",
