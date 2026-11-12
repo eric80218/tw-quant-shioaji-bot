@@ -8,10 +8,10 @@
     "1802": {
       "shares": 195,
       "entry_price": 76.7,
-      "current_price": 81.5,
-      "highest_price": 81.5,
-      "ratchet_stop": 70.9,
-      "score": 82.59,
+      "current_price": 81.7,
+      "highest_price": 81.7,
+      "ratchet_stop": 71.1,
+      "score": 82.96,
       "buy_date": "2026-11-11"
     }
   }
