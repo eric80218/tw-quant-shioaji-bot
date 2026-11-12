@@ -1,20 +1,17 @@
 {
-  "date": "2026-11-11",
-  "order_count": 2,
-  "executed_hashes": [
-    "20261111_TW_6446_SELL_ROTATE",
-    "20261111_TW_1802_BUY_6D"
-  ],
+  "date": "2026-11-12",
+  "order_count": 0,
+  "executed_hashes": [],
   "invested_cost": 14978.0,
   "realized_pnl": 28057.0,
   "positions": {
     "1802": {
       "shares": 195,
       "entry_price": 76.7,
-      "current_price": 76.7,
-      "highest_price": 76.7,
-      "ratchet_stop": 66.1,
-      "score": 78.68,
+      "current_price": 81.5,
+      "highest_price": 81.5,
+      "ratchet_stop": 70.9,
+      "score": 82.59,
       "buy_date": "2026-11-11"
     }
   }
