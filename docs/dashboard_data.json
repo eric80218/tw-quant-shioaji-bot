@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-11-13 20:52:32",
+  "last_updated": "2026-11-14 07:30:39",
   "is_live": false,
-  "market_regime": "DEFENSIVE (0050跌破月線 102.5<103.6 ‧ 限縮 1 倉)",
-  "daily_order_count": 0,
+  "market_regime": "BULL (0050站穩月線 nan>=nan ‧ 開放 3 倉)",
+  "daily_order_count": 1,
   "max_daily_orders": 3,
   "nav": 78057.0,
   "realized_pnl": 28057.0,
   "available_cash": 55273.0,
-  "invested_cost": 14978.0,
+  "invested_cost": 29981.0,
   "single_slot_limit": 15000.0,
-  "max_slots": 1,
+  "max_slots": 3,
   "positions": {
     "1802": {
       "shares": 195,
@@ -19,38 +19,68 @@
       "ratchet_stop": 73.4,
       "score": 81.37,
       "buy_date": "2026-11-11"
+    },
+    "2355": {
+      "shares": 227,
+      "entry_price": 66.0,
+      "current_price": 66.0,
+      "highest_price": 66.0,
+      "ratchet_stop": 57.6,
+      "score": 87.9,
+      "buy_date": "2026-11-14"
     }
   },
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號",
+  "latest_signal": "2355 買進 227股 @ 66.0元",
   "scanned_pool": [
-    "1303",
     "1802",
-    "2408",
+    "1303",
     "3037",
-    "6213",
+    "2408",
     "2308",
     "2327",
+    "2368",
     "3711",
     "8046",
-    "4958",
+    "6213",
     "2409",
-    "3167",
-    "2313",
-    "3406",
-    "2368",
     "2303",
-    "3481",
-    "2344",
-    "8996",
-    "6672"
+    "2313",
+    "3167",
+    "2317",
+    "4958",
+    "3715",
+    "2492",
+    "6456",
+    "2355"
   ],
   "scan_details": [
+    {
+      "symbol": "2355",
+      "name": "敬鵬",
+      "price": 65.9,
+      "score": 87.9,
+      "status": "PASS"
+    },
     {
       "symbol": "1802",
       "name": "台玻",
       "price": 85.1,
       "score": 81.37,
       "status": "HOLDING"
+    },
+    {
+      "symbol": "3715",
+      "name": "定穎投控",
+      "price": 141.5,
+      "score": 63.2,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "6456",
+      "name": "GIS-KY",
+      "price": 101.5,
+      "score": 60.9,
+      "status": "WAIT"
     },
     {
       "symbol": "1303",
@@ -74,17 +104,10 @@
       "status": "WAIT"
     },
     {
-      "symbol": "8996",
-      "name": "高力",
-      "price": 1440.0,
-      "score": 47.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3406",
-      "name": "玉晶光",
-      "price": 987.0,
-      "score": 44.9,
+      "symbol": "2317",
+      "name": "鴻海",
+      "price": 241.0,
+      "score": 47.0,
       "status": "WAIT"
     },
     {
@@ -116,17 +139,10 @@
       "status": "WAIT"
     },
     {
-      "symbol": "6672",
-      "name": "騰輝電子-KY",
-      "price": 510.0,
-      "score": 40.6,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3481",
-      "name": "群創",
-      "price": 40.0,
-      "score": 38.3,
+      "symbol": "2492",
+      "name": "華新科",
+      "price": 286.0,
+      "score": 36.2,
       "status": "WAIT"
     },
     {
@@ -162,13 +178,6 @@
       "name": "南電",
       "price": 977.0,
       "score": 30.7,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2344",
-      "name": "華邦電",
-      "price": 125.0,
-      "score": 29.9,
       "status": "WAIT"
     },
     {
