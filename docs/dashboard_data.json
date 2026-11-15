@@ -1,15 +1,15 @@
 {
-  "last_updated": "2026-11-14 07:30:39",
+  "last_updated": "2026-11-15 23:10:24",
   "is_live": false,
-  "market_regime": "BULL (0050站穩月線 nan>=nan ‧ 開放 3 倉)",
-  "daily_order_count": 1,
+  "market_regime": "DEFENSIVE (0050跌破月線 102.5<103.6 ‧ 限縮 1 倉)",
+  "daily_order_count": 0,
   "max_daily_orders": 3,
   "nav": 78057.0,
   "realized_pnl": 28057.0,
-  "available_cash": 55273.0,
+  "available_cash": 40270.0,
   "invested_cost": 29981.0,
   "single_slot_limit": 15000.0,
-  "max_slots": 3,
+  "max_slots": 1,
   "positions": {
     "1802": {
       "shares": 195,
@@ -23,14 +23,14 @@
     "2355": {
       "shares": 227,
       "entry_price": 66.0,
-      "current_price": 66.0,
+      "current_price": 65.9,
       "highest_price": 66.0,
-      "ratchet_stop": 57.6,
-      "score": 87.9,
+      "ratchet_stop": 57.7,
+      "score": 87.91,
       "buy_date": "2026-11-14"
     }
   },
-  "latest_signal": "2355 買進 227股 @ 66.0元",
+  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號 | ⚠️ 模擬測試回報: module 'shioaji.constant' has no attribute 'TFTStockOrderLot' (未提供憑證)",
   "scanned_pool": [
     "1802",
     "1303",
@@ -58,8 +58,8 @@
       "symbol": "2355",
       "name": "敬鵬",
       "price": 65.9,
-      "score": 87.9,
-      "status": "PASS"
+      "score": 87.91,
+      "status": "HOLDING"
     },
     {
       "symbol": "1802",
