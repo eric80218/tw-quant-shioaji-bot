@@ -1,36 +1,27 @@
 {
-  "last_updated": "2026-11-15 23:28:24",
+  "last_updated": "2026-11-15 23:30:23",
   "is_live": true,
   "market_regime": "DEFENSIVE (0050跌破月線 102.5<103.6 ‧ 限縮 1 倉)",
-  "daily_order_count": 0,
+  "daily_order_count": 1,
   "max_daily_orders": 3,
-  "nav": 78057.0,
-  "realized_pnl": 28057.0,
-  "available_cash": 40270.0,
-  "invested_cost": 29981.0,
+  "nav": 50000.0,
+  "realized_pnl": 0.0,
+  "available_cash": 45000.0,
+  "invested_cost": 15003.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
   "positions": {
-    "1802": {
-      "shares": 195,
-      "entry_price": 76.7,
-      "current_price": 85.1,
-      "highest_price": 85.1,
-      "ratchet_stop": 73.4,
-      "score": 81.37,
-      "buy_date": "2026-11-11"
-    },
     "2355": {
       "shares": 227,
       "entry_price": 66.0,
-      "current_price": 65.9,
+      "current_price": 66.0,
       "highest_price": 66.0,
-      "ratchet_stop": 57.7,
-      "score": 87.91,
-      "buy_date": "2026-11-14"
+      "ratchet_stop": 57.6,
+      "score": 87.9,
+      "buy_date": "2026-11-15"
     }
   },
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號 | 🟢 永豐實盤 API 與電子憑證已完美連線",
+  "latest_signal": "2355 買進 227股 @ 66.0元 | 🟢 永豐實盤 API 與電子憑證已完美連線",
   "scanned_pool": [
     "1802",
     "1303",
@@ -58,15 +49,15 @@
       "symbol": "2355",
       "name": "敬鵬",
       "price": 65.9,
-      "score": 87.91,
-      "status": "HOLDING"
+      "score": 87.9,
+      "status": "PASS"
     },
     {
       "symbol": "1802",
       "name": "台玻",
       "price": 85.1,
-      "score": 81.37,
-      "status": "HOLDING"
+      "score": 81.4,
+      "status": "PASS"
     },
     {
       "symbol": "3715",

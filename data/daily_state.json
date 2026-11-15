@@ -1,8 +1,20 @@
 {
-  "date": "2026-11-16",
-  "order_count": 0,
-  "executed_hashes": [],
-  "invested_cost": 0.0,
+  "date": "2026-11-15",
+  "order_count": 1,
+  "executed_hashes": [
+    "20261115_TW_2355_BUY_6D"
+  ],
+  "invested_cost": 15003.0,
   "realized_pnl": 0.0,
-  "positions": {}
+  "positions": {
+    "2355": {
+      "shares": 227,
+      "entry_price": 66.0,
+      "current_price": 66.0,
+      "highest_price": 66.0,
+      "ratchet_stop": 57.6,
+      "score": 87.9,
+      "buy_date": "2026-11-15"
+    }
+  }
 }
