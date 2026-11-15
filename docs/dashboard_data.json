@@ -1,27 +1,17 @@
 {
-  "last_updated": "2026-11-15 23:30:23",
+  "last_updated": "2026-11-15 23:34:36",
   "is_live": true,
   "market_regime": "DEFENSIVE (0050跌破月線 102.5<103.6 ‧ 限縮 1 倉)",
-  "daily_order_count": 1,
+  "daily_order_count": 0,
   "max_daily_orders": 3,
   "nav": 50000.0,
   "realized_pnl": 0.0,
   "available_cash": 45000.0,
-  "invested_cost": 15003.0,
+  "invested_cost": 0.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
-  "positions": {
-    "2355": {
-      "shares": 227,
-      "entry_price": 66.0,
-      "current_price": 66.0,
-      "highest_price": 66.0,
-      "ratchet_stop": 57.6,
-      "score": 87.9,
-      "buy_date": "2026-11-15"
-    }
-  },
-  "latest_signal": "2355 買進 227股 @ 66.0元 | 🟢 永豐實盤 API 與電子憑證已完美連線",
+  "positions": {},
+  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號 | 🟢 永豐實盤 API 與電子憑證已完美連線",
   "scanned_pool": [
     "1802",
     "1303",
@@ -188,6 +178,7 @@
   ],
   "stock_names": {
     "1802": "台玻",
+    "2355": "敬鵬",
     "2330": "台積電",
     "2454": "聯發科",
     "2317": "鴻海",
@@ -505,7 +496,6 @@
     "2352": "佳世達",
     "2353": "宏碁",
     "2354": "鴻準",
-    "2355": "敬鵬",
     "2356": "英業達",
     "2359": "所羅門",
     "2360": "致茂",
