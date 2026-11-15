@@ -68,7 +68,7 @@ class ShioajiBroker:
             print(f"-> [Step 3/3] 模擬委託送出成功！Trade: {trade}")
             time.sleep(2)
             sim_api.logout()
-            return f"✅ 永豐模擬測試單已成功送出 ({ca_status})"
+            return f"✅ 永豐模擬測試單已送出 ({ca_status})"
         except Exception as e:
             print(f"-> [模擬驗證異常] {e}")
             return f"⚠️ 模擬測試回報: {e} ({ca_status})"
@@ -83,11 +83,14 @@ class ShioajiBroker:
             print("-> 【Paper Trading 沙盒模式】未偵測到永豐金 API 金鑰，以模擬沙盒運行。")
             return False
 
+        # 每次啟動先執行一次永豐官方模擬下單驗證，確保週一營業日自動通過永豐後台「隨到隨審」測試！
+        sim_msg = self.run_official_sim_verification(api_key, secret_key, ca_base64, ca_passwd)
+
         if self.simulation or not ca_base64 or not ca_passwd:
-            self.sim_verified_msg = self.run_official_sim_verification(api_key, secret_key, ca_base64, ca_passwd)
+            self.sim_verified_msg = sim_msg
             return False
 
-        # 優先嘗試登入正式實盤 (simulation=False)
+        # 接著登入正式實盤環境 (simulation=False) 並掛載電子憑證
         try:
             import shioaji as sj
             self.api = sj.Shioaji(simulation=False)
@@ -97,12 +100,12 @@ class ShioajiBroker:
             self.api.activate_ca(ca_path=ca_path, ca_passwd=ca_passwd)
 
             self.is_logged_in = True
-            self.sim_verified_msg = "🟢 永豐實盤 API 與電子憑證已完美連線"
+            self.sim_verified_msg = f"🟢 實盤已連線 ({sim_msg})"
             print("-> 【Shioaji 實盤模式】永豐金 API 登入與 .pfx 憑證載入成功！")
             return True
         except Exception as e:
-            print(f"-> 【實盤待開通】({e})，自動執行官方模擬環境下單測試...")
-            self.sim_verified_msg = self.run_official_sim_verification(api_key, secret_key, ca_base64, ca_passwd)
+            print(f"-> 【實盤待開通】({e})")
+            self.sim_verified_msg = f"⚠️ 實盤待開通 ({sim_msg})"
             self.is_logged_in = False
             return False
 
@@ -122,6 +125,10 @@ class ShioajiBroker:
         try:
             import shioaji as sj
             contract = self.api.Contracts.Stocks[symbol]
+            if not contract:
+                print(f"-> [實盤委託失敗] 找不到 {symbol} 合約")
+                return False
+
             lot_enum = getattr(sj.constant, "StockOrderLot", getattr(sj.constant, "TFTStockOrderLot", None))
             intraday_odd = getattr(lot_enum, "IntradayOdd", "IntradayOdd")
 
@@ -135,7 +142,13 @@ class ShioajiBroker:
                 account=self.api.stock_account
             )
             trade = self.api.place_order(contract, order)
-            print(f"-> [實盤委託成功] {trade}")
+            print(f"-> [實盤委託回報] {trade}")
+
+            # 嚴格檢查永豐主機回傳的委託狀態，若為 Failed 則回傳 False 避免誤記帳
+            status_str = str(getattr(trade, "status", "")).upper()
+            if "FAILED" in status_str or "CANCELLED" in status_str:
+                print(f"-> [實盤退單攔截] 委託未成功: {status_str}")
+                return False
             return True
         except Exception as e:
             print(f"-> [實盤委託失敗] {e}")
