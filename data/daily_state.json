@@ -1,27 +1,8 @@
 {
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "order_count": 0,
   "executed_hashes": [],
-  "invested_cost": 29981.0,
-  "realized_pnl": 28057.0,
-  "positions": {
-    "1802": {
-      "shares": 195,
-      "entry_price": 76.7,
-      "current_price": 85.1,
-      "highest_price": 85.1,
-      "ratchet_stop": 73.4,
-      "score": 81.37,
-      "buy_date": "2026-11-11"
-    },
-    "2355": {
-      "shares": 227,
-      "entry_price": 66.0,
-      "current_price": 65.9,
-      "highest_price": 66.0,
-      "ratchet_stop": 57.7,
-      "score": 87.91,
-      "buy_date": "2026-11-14"
-    }
-  }
+  "invested_cost": 0.0,
+  "realized_pnl": 0.0,
+  "positions": {}
 }
