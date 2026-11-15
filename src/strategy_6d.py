@@ -16,27 +16,25 @@ class Strategy6D:
             "1519.TW", "1513.TW", "2603.TW", "2609.TW", "2368.TW",
             "1232.TW", "1216.TW", "2881.TW", "2882.TW", "2891.TW"
         ]
-        # 雙軌制中文股名：內建熱門股與持倉股備援字典，連線 TWSE API 時會自動動態更新全市場股名
         self.stock_names = {
-            "1802": "台玻", "2330": "台積電", "2454": "聯發科", "2317": "鴻海", "2382": "廣達",
-            "3231": "緯創", "2357": "華碩", "2308": "台達電", "3711": "日月光投控", "2379": "瑞昱",
-            "3034": "聯詠", "1519": "華城", "1513": "中興電", "2603": "長榮", "2609": "陽明",
-            "2368": "金像電", "1232": "大統益", "1216": "統一", "2881": "富邦金", "2882": "國泰金",
-            "2891": "中信金", "2884": "玉山金", "5880": "合庫金", "2883": "凱基金", "2885": "元大金",
-            "2303": "聯電", "2615": "萬海", "2618": "長榮航", "2610": "華航", "3045": "台灣大",
-            "4904": "遠傳", "2313": "華通", "3037": "欣興", "2344": "華邦電", "2408": "南亞科"
+            "1802": "台玻", "2355": "敬鵬", "2330": "台積電", "2454": "聯發科", "2317": "鴻海",
+            "2382": "廣達", "3231": "緯創", "2357": "華碩", "2308": "台達電", "3711": "日月光投控",
+            "2379": "瑞昱", "3034": "聯詠", "1519": "華城", "1513": "中興電", "2603": "長榮",
+            "2609": "陽明", "2368": "金像電", "1232": "大統益", "1216": "統一", "2881": "富邦金",
+            "2882": "國泰金", "2891": "中信金", "2884": "玉山金", "5880": "合庫金", "2883": "凱基金",
+            "2885": "元大金", "2303": "聯電", "2615": "萬海", "2618": "長榮航", "2610": "華航",
+            "3045": "台灣大", "4904": "遠傳", "2313": "華通", "3037": "欣興", "2344": "華邦電", "2408": "南亞科"
         }
-        self.max_single_amount = 15000.0   # 單倉最高上限 15,000 元
-        self.min_single_amount = 3510.0    # 永豐金 2 折低消門檻
-        self.atr_multiplier = 2.0          # 跌破最高價 - 2.0 倍 ATR 觸發賣出
-        self.rotation_threshold = 7.5      # +7.5 分換股輪動門檻
+        self.max_single_amount = 15000.0
+        self.min_single_amount = 3510.0
+        self.atr_multiplier = 2.0
+        self.rotation_threshold = 7.5
         self.market_regime = "BULL (大盤多頭 ‧ 開放 3 倉)"
-        self.scan_details = []             # 儲存今日 20 強掃描明細供戰情室網頁顯示
+        self.scan_details = []
         self.watch_list = watch_list or self.fetch_dynamic_top20()
 
     @staticmethod
     def get_tick_size(price: float) -> float:
-        """台股官方 6 級價格升降單位 (Tick Size)"""
         if price < 10:
             return 0.01
         elif price < 50:
@@ -51,7 +49,6 @@ class Strategy6D:
             return 5.0
 
     def align_tw_tick(self, raw_price: float, side: str = "NONE", aggressive_ticks: int = 1) -> float:
-        """將價格精準對齊台股 Tick 檔位，避免 Shioaji API 退單"""
         tick = self.get_tick_size(raw_price)
         if side == "BUY":
             adjusted = raw_price + (tick * aggressive_ticks)
@@ -64,7 +61,6 @@ class Strategy6D:
         return round(steps * tick, 2)
 
     def check_market_regime(self) -> int:
-        """大盤系統性風險濾網：檢查 0050.TW 是否站上 20 日月線"""
         try:
             df = yf.Ticker("0050.TW").history(period="3mo")
             if df.empty or len(df) < 22:
@@ -95,7 +91,6 @@ class Strategy6D:
                     if len(code) != 4 or not code.isdigit() or code.startswith("00"):
                         continue
                     if name:
-                        # 動態寫入 TWSE 全市場最新中文股名
                         self.stock_names[code] = name
                     try:
                         close_p = float(str(row.get("ClosingPrice", "0")).replace(",", ""))
@@ -137,10 +132,10 @@ class Strategy6D:
         positions = risk_mgr.daily_state.get("positions", {})
         now_tw = datetime.now(TAIWAN_TZ)
         today_str = now_tw.strftime("%Y%m%d")
+        weekday = now_tw.weekday()  # 0=週一 ... 4=週五, 5=週六, 6=週日
         current_hm = now_tw.hour * 100 + now_tw.minute
         self.scan_details = []
 
-        # === 第一階段：現有持倉 14D ATR 保本棘輪巡檢 (全天候允許停損賣出) ===
         weakest_symbol = None
         weakest_score = 999.0
         atr_sell_order = None
@@ -195,7 +190,6 @@ class Strategy6D:
 
         risk_mgr.save_state()
 
-        # === 第二階段：掃描動態 20 強清單並更新戰情室雷達 ===
         best_candidate = None
         highest_score = -999.0
 
@@ -255,12 +249,17 @@ class Strategy6D:
 
         self.scan_details.sort(key=lambda x: x.get("score", 0), reverse=True)
 
-        # 若觸發 ATR 停損，優先回傳停損單
+        # 嚴格交易時段鎖：週末 (weekday >= 5) 或盤後/盤前 (不在 09:00~13:25 之間) 僅更新雷達，絕不發送買賣委託！
+        if weekday >= 5 or not (900 <= current_hm <= 1325):
+            print("-> [非交易時段保護] 目前為休市時間，僅更新 20 強戰情雷達，不發送買賣單。")
+            return None
+
+        # 盤中 09:00 ~ 13:25 若觸發 ATR 停損，優先執行停損賣出
         if atr_sell_order:
             return atr_sell_order
 
-        # 盤中防追高鎖：09:00 ~ 12:44 僅巡檢停損，12:45 後才開放買進新股與換股
-        if 900 <= current_hm < 1245:
+        # 盤中防追高鎖：09:00 ~ 12:44 僅巡檢停損，12:45 ~ 13:25 尾盤確認時段才開放買進與換股
+        if current_hm < 1245:
             return None
 
         if not best_candidate:
