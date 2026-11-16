@@ -2,9 +2,13 @@ name: TW 6D Quant Auto-Trading & WarRoom
 
 on:
   schedule:
-    - cron: '50 0 * * 1-5'
-    - cron: '30 1,2,3,4 * * 1-5'
-    - cron: '0 5 * * 1-5'
+    # 台灣時間 08:52 (盤前對帳)
+    - cron: '52 0 * * 1-5'
+    # 台灣時間 09:28, 10:28, 11:28, 12:28 (盤中每小時巡檢，避開30分全球排程塞車)
+    - cron: '28 1,2,3,4 * * 1-5'
+    # 台灣時間 12:52 與 13:05 (尾盤確認買進雙重保險，避開00分整點塞車)
+    - cron: '52 4 * * 1-5'
+    - cron: '5 5 * * 1-5'
   workflow_dispatch:
 
 env:
@@ -40,6 +44,7 @@ jobs:
           SHIOAJI_CA_BASE64: ${{ secrets.SHIOAJI_CA_BASE64 }}
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
         run: |
+          git pull origin main --no-edit || true
           python main.py
 
       - name: Commit and Push War-Room & Portfolio State
@@ -48,5 +53,4 @@ jobs:
           git config --local user.name "6D Quant Bot"
           git add data/ docs/
           git commit -m "chore: update portfolio state and war-room $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git pull --rebase -X ours origin main || true
-          git push origin main
+          git push origin main --force
