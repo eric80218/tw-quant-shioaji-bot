@@ -1,8 +1,20 @@
 {
   "date": "2026-11-16",
-  "order_count": 0,
-  "executed_hashes": [],
-  "invested_cost": 0.0,
+  "order_count": 1,
+  "executed_hashes": [
+    "20261116_TW_3715_BUY_6D"
+  ],
+  "invested_cost": 14948.0,
   "realized_pnl": 0.0,
-  "positions": {}
+  "positions": {
+    "3715": {
+      "shares": 107,
+      "entry_price": 139.5,
+      "current_price": 139.5,
+      "highest_price": 139.5,
+      "ratchet_stop": 117.5,
+      "score": 59.7,
+      "buy_date": "2026-11-16"
+    }
+  }
 }
