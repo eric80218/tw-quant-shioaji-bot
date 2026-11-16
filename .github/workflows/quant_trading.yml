@@ -1,14 +1,6 @@
 name: TW 6D Quant Auto-Trading & WarRoom
 
 on:
-  schedule:
-    # 台灣時間 08:52 (盤前對帳)
-    - cron: '52 0 * * 1-5'
-    # 台灣時間 09:28, 10:28, 11:28, 12:28 (盤中每小時巡檢，避開30分全球排程塞車)
-    - cron: '28 1,2,3,4 * * 1-5'
-    # 台灣時間 12:52 與 13:05 (尾盤確認買進雙重保險，避開00分整點塞車)
-    - cron: '52 4 * * 1-5'
-    - cron: '5 5 * * 1-5'
   workflow_dispatch:
 
 env:
@@ -22,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -52,5 +46,4 @@ jobs:
           git config --local user.email "quant-bot@github.com"
           git config --local user.name "6D Quant Bot"
           git add data/ docs/
-          git commit -m "chore: update portfolio state and war-room $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-          git push origin main --force
+          git diff --staged --quiet || (git commit -m "chore: update war-room [skip actions]" && git push origin main)
