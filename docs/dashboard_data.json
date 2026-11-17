@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-17 09:50:51",
+  "last_updated": "2026-11-17 10:51:03",
   "is_live": true,
-  "market_regime": "DEFENSIVE (0050跌破月線 95.8<102.3 ‧ 限縮 1 倉)",
+  "market_regime": "DEFENSIVE (0050跌破月線 94.8<102.3 ‧ 限縮 1 倉)",
   "daily_order_count": 0,
   "max_daily_orders": 3,
   "nav": 50000.0,
@@ -14,10 +14,10 @@
     "3715": {
       "shares": 107,
       "entry_price": 139.5,
-      "current_price": 129.0,
+      "current_price": 127.0,
       "highest_price": 139.5,
       "ratchet_stop": 118.0,
-      "score": 42.43,
+      "score": 40.35,
       "buy_date": "2026-11-16"
     }
   },
@@ -48,15 +48,15 @@
     {
       "symbol": "1802",
       "name": "台玻",
-      "price": 70.5,
-      "score": 44.3,
+      "price": 70.6,
+      "score": 44.4,
       "status": "WAIT"
     },
     {
       "symbol": "1303",
       "name": "南亞",
-      "price": 270.5,
-      "score": 32.8,
+      "price": 266.5,
+      "score": 31.0,
       "status": "WAIT"
     },
     {
@@ -69,92 +69,92 @@
     {
       "symbol": "2317",
       "name": "鴻海",
-      "price": 224.0,
-      "score": 30.2,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2368",
-      "name": "金像電",
-      "price": 860.0,
-      "score": 22.4,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3711",
-      "name": "日月光投控",
-      "price": 532.0,
-      "score": 21.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3665",
-      "name": "貿聯-KY",
-      "price": 1395.0,
-      "score": 21.1,
+      "price": 221.5,
+      "score": 27.4,
       "status": "WAIT"
     },
     {
       "symbol": "2409",
       "name": "友達",
-      "price": 27.0,
-      "score": 21.0,
+      "price": 27.1,
+      "score": 21.4,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3665",
+      "name": "貿聯-KY",
+      "price": 1390.0,
+      "score": 20.6,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2368",
+      "name": "金像電",
+      "price": 843.0,
+      "score": 20.4,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3711",
+      "name": "日月光投控",
+      "price": 517.0,
+      "score": 18.7,
       "status": "WAIT"
     },
     {
       "symbol": "3231",
       "name": "緯創",
-      "price": 158.0,
-      "score": 17.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2345",
-      "name": "智邦",
-      "price": 1325.0,
-      "score": 17.8,
+      "price": 157.5,
+      "score": 17.4,
       "status": "WAIT"
     },
     {
       "symbol": "2303",
       "name": "聯電",
-      "price": 93.2,
-      "score": 17.3,
+      "price": 92.1,
+      "score": 16.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2345",
+      "name": "智邦",
+      "price": 1300.0,
+      "score": 15.7,
       "status": "WAIT"
     },
     {
       "symbol": "2308",
       "name": "台達電",
-      "price": 1070.0,
-      "score": 15.7,
+      "price": 1050.0,
+      "score": 13.8,
       "status": "WAIT"
     },
     {
       "symbol": "4958",
       "name": "臻鼎-KY",
-      "price": 373.0,
-      "score": 15.2,
+      "price": 367.0,
+      "score": 13.6,
       "status": "WAIT"
     },
     {
       "symbol": "2408",
       "name": "南亞科",
-      "price": 332.5,
-      "score": 12.2,
+      "price": 322.0,
+      "score": 9.0,
       "status": "WAIT"
     },
     {
       "symbol": "3406",
       "name": "玉晶光",
-      "price": 842.0,
-      "score": 10.9,
+      "price": 824.0,
+      "score": 8.9,
       "status": "WAIT"
     },
     {
       "symbol": "2327",
       "name": "國巨*",
-      "price": 364.0,
-      "score": 10.6,
+      "price": 356.5,
+      "score": 8.5,
       "status": "WAIT"
     },
     {
@@ -167,22 +167,22 @@
     {
       "symbol": "2344",
       "name": "華邦電",
-      "price": 109.0,
-      "score": 6.0,
+      "price": 107.5,
+      "score": 4.8,
       "status": "WAIT"
     },
     {
       "symbol": "2382",
       "name": "廣達",
-      "price": 264.0,
-      "score": 5.3,
+      "price": 262.5,
+      "score": 4.7,
       "status": "WAIT"
     },
     {
       "symbol": "3037",
       "name": "欣興",
-      "price": 648.0,
-      "score": 4.9,
+      "price": 638.0,
+      "score": 3.5,
       "status": "WAIT"
     }
   ],
