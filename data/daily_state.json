@@ -8,10 +8,10 @@
     "3715": {
       "shares": 107,
       "entry_price": 139.5,
-      "current_price": 127.5,
+      "current_price": 128.0,
       "highest_price": 139.5,
       "ratchet_stop": 118.0,
-      "score": 40.87,
+      "score": 42.5,
       "buy_date": "2026-11-16"
     }
   }
