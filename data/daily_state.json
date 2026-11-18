@@ -1,5 +1,5 @@
 {
-  "date": "2026-11-17",
+  "date": "2026-11-18",
   "order_count": 0,
   "executed_hashes": [],
   "invested_cost": 14948.0,
@@ -8,10 +8,10 @@
     "3715": {
       "shares": 107,
       "entry_price": 139.5,
-      "current_price": 128.0,
+      "current_price": 127.5,
       "highest_price": 139.5,
       "ratchet_stop": 118.0,
-      "score": 41.39,
+      "score": 40.87,
       "buy_date": "2026-11-16"
     }
   }
