@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-19 12:51:00",
+  "last_updated": "2026-11-19 13:05:49",
   "is_live": true,
-  "market_regime": "DEFENSIVE (0050跌破月線 91.5<101.5 ‧ 限縮 1 倉)",
+  "market_regime": "DEFENSIVE (0050跌破月線 90.8<101.4 ‧ 限縮 1 倉)",
   "daily_order_count": 0,
   "max_daily_orders": 3,
   "nav": 50000.0,
@@ -14,10 +14,10 @@
     "3715": {
       "shares": 107,
       "entry_price": 139.5,
-      "current_price": 127.0,
+      "current_price": 126.0,
       "highest_price": 140.0,
       "ratchet_stop": 118.0,
-      "score": 47.23,
+      "score": 46.19,
       "buy_date": "2026-11-16"
     }
   },
@@ -46,17 +46,17 @@
   ],
   "scan_details": [
     {
-      "symbol": "2317",
-      "name": "鴻海",
-      "price": 223.0,
-      "score": 35.2,
+      "symbol": "2345",
+      "name": "智邦",
+      "price": 1355.0,
+      "score": 34.1,
       "status": "WAIT"
     },
     {
-      "symbol": "2345",
-      "name": "智邦",
-      "price": 1365.0,
-      "score": 35.0,
+      "symbol": "2317",
+      "name": "鴻海",
+      "price": 220.5,
+      "score": 32.4,
       "status": "WAIT"
     },
     {
@@ -69,8 +69,8 @@
     {
       "symbol": "2313",
       "name": "華通",
-      "price": 170.5,
-      "score": 29.1,
+      "price": 169.5,
+      "score": 28.3,
       "status": "WAIT"
     },
     {
@@ -83,22 +83,8 @@
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 513.0,
-      "score": 26.7,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2303",
-      "name": "聯電",
-      "price": 89.8,
-      "score": 24.6,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2308",
-      "name": "台達電",
-      "price": 1020.0,
-      "score": 24.2,
+      "price": 508.0,
+      "score": 25.6,
       "status": "WAIT"
     },
     {
@@ -109,10 +95,17 @@
       "status": "WAIT"
     },
     {
-      "symbol": "4958",
-      "name": "臻鼎-KY",
-      "price": 350.0,
-      "score": 21.2,
+      "symbol": "2303",
+      "name": "聯電",
+      "price": 88.6,
+      "score": 23.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2308",
+      "name": "台達電",
+      "price": 1000.0,
+      "score": 22.0,
       "status": "WAIT"
     },
     {
@@ -120,6 +113,13 @@
       "name": "京元電子",
       "price": 175.0,
       "score": 20.5,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "4958",
+      "name": "臻鼎-KY",
+      "price": 346.5,
+      "score": 20.2,
       "status": "WAIT"
     },
     {
@@ -151,24 +151,10 @@
       "status": "WAIT"
     },
     {
-      "symbol": "2408",
-      "name": "南亞科",
-      "price": 298.5,
-      "score": 9.5,
-      "status": "WAIT"
-    },
-    {
       "symbol": "6213",
       "name": "聯茂",
       "price": 395.0,
       "score": 8.9,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2327",
-      "name": "國巨*",
-      "price": 325.5,
-      "score": 8.3,
       "status": "WAIT"
     },
     {
@@ -179,10 +165,24 @@
       "status": "WAIT"
     },
     {
+      "symbol": "2408",
+      "name": "南亞科",
+      "price": 294.0,
+      "score": 8.1,
+      "status": "WAIT"
+    },
+    {
       "symbol": "3189",
       "name": "景碩",
       "price": 522.0,
       "score": 7.6,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2327",
+      "name": "國巨*",
+      "price": 321.5,
+      "score": 7.2,
       "status": "WAIT"
     }
   ],
