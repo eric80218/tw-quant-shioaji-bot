@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-20 11:50:55",
+  "last_updated": "2026-11-20 12:50:54",
   "is_live": true,
-  "market_regime": "DEFENSIVE (0050跌破月線 85.2<100.4 ‧ 限縮 1 倉)",
+  "market_regime": "DEFENSIVE (0050跌破月線 84.7<100.4 ‧ 限縮 1 倉)",
   "daily_order_count": 1,
   "max_daily_orders": 3,
   "nav": 47196.0,
@@ -38,15 +38,15 @@
     {
       "symbol": "6285",
       "name": "啟碁",
-      "price": 173.5,
-      "score": 29.3,
+      "price": 173.0,
+      "score": 29.0,
       "status": "WAIT"
     },
     {
       "symbol": "3665",
       "name": "貿聯-KY",
-      "price": 1305.0,
-      "score": 26.7,
+      "price": 1300.0,
+      "score": 26.2,
       "status": "WAIT"
     },
     {
@@ -66,8 +66,8 @@
     {
       "symbol": "2317",
       "name": "鴻海",
-      "price": 210.5,
-      "score": 22.1,
+      "price": 211.0,
+      "score": 22.4,
       "status": "WAIT"
     },
     {
@@ -87,8 +87,8 @@
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 462.5,
-      "score": 18.0,
+      "price": 462.0,
+      "score": 17.9,
       "status": "WAIT"
     },
     {
@@ -101,15 +101,15 @@
     {
       "symbol": "6669",
       "name": "緯穎",
-      "price": 1330.0,
-      "score": 16.8,
+      "price": 1325.0,
+      "score": 16.4,
       "status": "WAIT"
     },
     {
       "symbol": "2303",
       "name": "聯電",
-      "price": 80.0,
-      "score": 14.6,
+      "price": 80.5,
+      "score": 15.3,
       "status": "WAIT"
     },
     {
@@ -136,8 +136,8 @@
     {
       "symbol": "6770",
       "name": "力積電",
-      "price": 44.8,
-      "score": 10.6,
+      "price": 44.5,
+      "score": 10.0,
       "status": "WAIT"
     },
     {
@@ -150,8 +150,8 @@
     {
       "symbol": "2327",
       "name": "國巨*",
-      "price": 299.5,
-      "score": 5.3,
+      "price": 298.5,
+      "score": 5.0,
       "status": "WAIT"
     },
     {
@@ -162,17 +162,17 @@
       "status": "WAIT"
     },
     {
-      "symbol": "2408",
-      "name": "南亞科",
-      "price": 265.0,
+      "symbol": "2344",
+      "name": "華邦電",
+      "price": 89.7,
       "score": 2.6,
       "status": "WAIT"
     },
     {
-      "symbol": "2344",
-      "name": "華邦電",
-      "price": 88.9,
-      "score": 1.9,
+      "symbol": "2408",
+      "name": "南亞科",
+      "price": 264.5,
+      "score": 2.4,
       "status": "WAIT"
     }
   ],
