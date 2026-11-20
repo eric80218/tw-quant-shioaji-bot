@@ -1,18 +1,10 @@
 {
   "date": "2026-11-20",
-  "order_count": 0,
-  "executed_hashes": [],
-  "invested_cost": 14948.0,
-  "realized_pnl": 0.0,
-  "positions": {
-    "3715": {
-      "shares": 107,
-      "entry_price": 139.5,
-      "current_price": 126.0,
-      "highest_price": 140.0,
-      "ratchet_stop": 118.0,
-      "score": 46.19,
-      "buy_date": "2026-11-16"
-    }
-  }
+  "order_count": 1,
+  "executed_hashes": [
+    "20261120_TW_3715_SELL_ATR"
+  ],
+  "invested_cost": 0.0,
+  "realized_pnl": -2804.0,
+  "positions": {}
 }
