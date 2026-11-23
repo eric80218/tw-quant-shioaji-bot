@@ -1,17 +1,27 @@
 {
-  "last_updated": "2026-11-23 11:51:18",
+  "last_updated": "2026-11-23 12:51:27",
   "is_live": true,
-  "market_regime": "DEFENSIVE (0050跌破月線 86.9<98.6 ‧ 限縮 1 倉)",
-  "daily_order_count": 0,
+  "market_regime": "DEFENSIVE (0050跌破月線 86.8<98.6 ‧ 限縮 1 倉)",
+  "daily_order_count": 1,
   "max_daily_orders": 3,
   "nav": 47196.0,
   "realized_pnl": -2804.0,
-  "available_cash": 42476.0,
-  "invested_cost": 0.0,
+  "available_cash": 27470.0,
+  "invested_cost": 15006.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
-  "positions": {},
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號 | 🟢 實盤已連線 (✅ 永豐模擬測試單已送出 (憑證解碼成功(2752 bytes)))",
+  "positions": {
+    "2412": {
+      "shares": 90,
+      "entry_price": 166.5,
+      "current_price": 166.5,
+      "highest_price": 166.5,
+      "ratchet_stop": 156.5,
+      "score": 64.3,
+      "buy_date": "2026-11-23"
+    }
+  },
+  "latest_signal": "2412 買進 90股 @ 166.5元 | 🟢 實盤已連線 (⚠️ 模擬測試回報: Timeout Topic: api/v1/paper/place_order, Corr: c4, Timeout: 30000ms (憑證解碼成功(2752 bytes)))",
   "scanned_pool": [
     "2327",
     "2303",
@@ -36,17 +46,17 @@
   ],
   "scan_details": [
     {
-      "symbol": "2468",
-      "name": "華經",
-      "price": 68.5,
-      "score": 62.3,
+      "symbol": "2412",
+      "name": "中華電",
+      "price": 166.0,
+      "score": 64.3,
       "status": "PASS"
     },
     {
-      "symbol": "2412",
-      "name": "中華電",
-      "price": 163.5,
-      "score": 59.1,
+      "symbol": "2468",
+      "name": "華經",
+      "price": 67.6,
+      "score": 60.2,
       "status": "WAIT"
     },
     {
@@ -87,85 +97,78 @@
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 487.0,
-      "score": 33.1,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3231",
-      "name": "緯創",
-      "price": 152.0,
-      "score": 32.0,
+      "price": 481.5,
+      "score": 31.5,
       "status": "WAIT"
     },
     {
       "symbol": "2409",
       "name": "友達",
-      "price": 24.3,
-      "score": 31.1,
+      "price": 24.1,
+      "score": 30.0,
       "status": "WAIT"
     },
     {
       "symbol": "4958",
       "name": "臻鼎-KY",
-      "price": 328.5,
-      "score": 29.2,
+      "price": 326.5,
+      "score": 28.4,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3231",
+      "name": "緯創",
+      "price": 149.0,
+      "score": 27.7,
       "status": "WAIT"
     },
     {
       "symbol": "6669",
       "name": "緯穎",
-      "price": 1390.0,
-      "score": 29.0,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2317",
-      "name": "鴻海",
-      "price": 210.0,
-      "score": 24.3,
+      "price": 1365.0,
+      "score": 25.7,
       "status": "WAIT"
     },
     {
       "symbol": "6672",
       "name": "騰輝電子-KY",
-      "price": 354.5,
-      "score": 24.3,
+      "price": 353.5,
+      "score": 23.9,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2317",
+      "name": "鴻海",
+      "price": 207.5,
+      "score": 22.5,
       "status": "WAIT"
     },
     {
       "symbol": "2891",
       "name": "中信金",
-      "price": 64.2,
-      "score": 23.3,
+      "price": 63.8,
+      "score": 22.4,
       "status": "WAIT"
     },
     {
       "symbol": "3481",
       "name": "群創",
-      "price": 30.3,
-      "score": 21.1,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2408",
-      "name": "南亞科",
-      "price": 280.5,
-      "score": 19.2,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "3037",
-      "name": "欣興",
-      "price": 557.0,
-      "score": 18.8,
+      "price": 30.2,
+      "score": 20.8,
       "status": "WAIT"
     },
     {
       "symbol": "2344",
       "name": "華邦電",
-      "price": 94.8,
-      "score": 18.5,
+      "price": 95.1,
+      "score": 19.0,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2408",
+      "name": "南亞科",
+      "price": 277.5,
+      "score": 17.5,
       "status": "WAIT"
     },
     {
@@ -173,6 +176,13 @@
       "name": "國巨*",
       "price": 306.5,
       "score": 17.1,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "3037",
+      "name": "欣興",
+      "price": 549.0,
+      "score": 16.9,
       "status": "WAIT"
     }
   ],
