@@ -1,19 +1,17 @@
 {
-  "date": "2026-11-23",
-  "order_count": 1,
-  "executed_hashes": [
-    "20261123_TW_2412_BUY_6D"
-  ],
+  "date": "2026-11-24",
+  "order_count": 0,
+  "executed_hashes": [],
   "invested_cost": 15006.0,
   "realized_pnl": -2804.0,
   "positions": {
     "2412": {
       "shares": 90,
       "entry_price": 166.5,
-      "current_price": 165.0,
+      "current_price": 164.5,
       "highest_price": 166.5,
       "ratchet_stop": 157.0,
-      "score": 62.3,
+      "score": 61.29,
       "buy_date": "2026-11-23"
     }
   }
