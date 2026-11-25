@@ -8,10 +8,10 @@
     "2412": {
       "shares": 90,
       "entry_price": 166.5,
-      "current_price": 164.5,
+      "current_price": 165.5,
       "highest_price": 170.0,
       "ratchet_stop": 159.5,
-      "score": 56.88,
+      "score": 59.24,
       "buy_date": "2026-11-23"
     }
   }
