@@ -1,17 +1,27 @@
 {
-  "last_updated": "2026-11-27 11:50:57",
+  "last_updated": "2026-11-27 12:50:57",
   "is_live": true,
-  "market_regime": "DEFENSIVE (0050跌破月線 92.8<96.4 ‧ 限縮 1 倉)",
-  "daily_order_count": 0,
+  "market_regime": "DEFENSIVE (0050跌破月線 92.7<96.4 ‧ 限縮 1 倉)",
+  "daily_order_count": 1,
   "max_daily_orders": 3,
   "nav": 47243.0,
   "realized_pnl": -2757.0,
-  "available_cash": 42519.0,
-  "invested_cost": 0.0,
+  "available_cash": 27501.0,
+  "invested_cost": 15018.0,
   "single_slot_limit": 15000.0,
   "max_slots": 1,
-  "positions": {},
-  "latest_signal": "持倉棘輪安全 ‧ 無新增買賣訊號 | 🟢 實盤已連線 (✅ 永豐模擬測試單已送出 (憑證解碼成功(2752 bytes)))",
+  "positions": {
+    "2412": {
+      "shares": 89,
+      "entry_price": 168.5,
+      "current_price": 168.5,
+      "highest_price": 168.5,
+      "ratchet_stop": 158.0,
+      "score": 73.0,
+      "buy_date": "2026-11-27"
+    }
+  },
+  "latest_signal": "2412 買進 89股 @ 168.5元 | 🟢 實盤已連線 (✅ 永豐模擬測試單已送出 (憑證解碼成功(2752 bytes)))",
   "scanned_pool": [
     "1802",
     "2308",
@@ -38,8 +48,8 @@
     {
       "symbol": "2412",
       "name": "中華電",
-      "price": 168.5,
-      "score": 73.9,
+      "price": 168.0,
+      "score": 73.0,
       "status": "PASS"
     },
     {
@@ -52,64 +62,57 @@
     {
       "symbol": "2368",
       "name": "金像電",
-      "price": 959.0,
-      "score": 59.8,
+      "price": 944.0,
+      "score": 57.7,
       "status": "WAIT"
     },
     {
       "symbol": "2308",
       "name": "台達電",
-      "price": 1130.0,
-      "score": 53.2,
+      "price": 1125.0,
+      "score": 52.5,
       "status": "WAIT"
     },
     {
       "symbol": "2603",
       "name": "長榮",
-      "price": 249.0,
-      "score": 51.9,
+      "price": 248.5,
+      "score": 51.4,
       "status": "WAIT"
     },
     {
       "symbol": "1303",
       "name": "南亞",
-      "price": 245.0,
-      "score": 49.4,
+      "price": 243.5,
+      "score": 48.6,
       "status": "WAIT"
     },
     {
       "symbol": "3037",
       "name": "欣興",
-      "price": 652.0,
-      "score": 48.8,
+      "price": 650.0,
+      "score": 48.4,
       "status": "WAIT"
     },
     {
       "symbol": "3711",
       "name": "日月光投控",
-      "price": 522.0,
-      "score": 48.7,
+      "price": 521.0,
+      "score": 48.4,
       "status": "WAIT"
     },
     {
       "symbol": "2449",
       "name": "京元電子",
-      "price": 183.5,
-      "score": 47.1,
-      "status": "WAIT"
-    },
-    {
-      "symbol": "2882",
-      "name": "國泰金",
-      "price": 104.0,
-      "score": 44.8,
+      "price": 184.0,
+      "score": 47.5,
       "status": "WAIT"
     },
     {
       "symbol": "4958",
       "name": "臻鼎-KY",
-      "price": 350.0,
-      "score": 44.8,
+      "price": 349.5,
+      "score": 44.7,
       "status": "WAIT"
     },
     {
@@ -120,17 +123,24 @@
       "status": "WAIT"
     },
     {
-      "symbol": "2327",
-      "name": "國巨*",
-      "price": 346.5,
+      "symbol": "2882",
+      "name": "國泰金",
+      "price": 103.0,
       "score": 43.1,
       "status": "WAIT"
     },
     {
-      "symbol": "2303",
-      "name": "聯電",
-      "price": 88.8,
-      "score": 42.1,
+      "symbol": "2408",
+      "name": "南亞科",
+      "price": 309.0,
+      "score": 42.4,
+      "status": "WAIT"
+    },
+    {
+      "symbol": "2327",
+      "name": "國巨*",
+      "price": 343.5,
+      "score": 41.6,
       "status": "WAIT"
     },
     {
@@ -141,24 +151,24 @@
       "status": "WAIT"
     },
     {
-      "symbol": "2408",
-      "name": "南亞科",
-      "price": 306.0,
-      "score": 40.8,
+      "symbol": "2303",
+      "name": "聯電",
+      "price": 88.3,
+      "score": 41.3,
       "status": "WAIT"
     },
     {
       "symbol": "3167",
       "name": "大量",
-      "price": 594.0,
-      "score": 38.9,
+      "price": 598.0,
+      "score": 39.7,
       "status": "WAIT"
     },
     {
       "symbol": "6213",
       "name": "聯茂",
-      "price": 414.5,
-      "score": 38.8,
+      "price": 415.5,
+      "score": 39.1,
       "status": "WAIT"
     },
     {
@@ -171,8 +181,8 @@
     {
       "symbol": "3189",
       "name": "景碩",
-      "price": 529.0,
-      "score": 38.5,
+      "price": 527.0,
+      "score": 38.1,
       "status": "WAIT"
     }
   ],
