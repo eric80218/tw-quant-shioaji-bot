@@ -1,9 +1,7 @@
 {
-  "date": "2026-11-26",
-  "order_count": 1,
-  "executed_hashes": [
-    "20261126_TW_2412_SELL_ROTATE"
-  ],
+  "date": "2026-11-27",
+  "order_count": 0,
+  "executed_hashes": [],
   "invested_cost": 0.0,
   "realized_pnl": -2757.0,
   "positions": {}
